@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+
+  emqx:
+    container_name: emqx
+    image: emqx/emqx:4.4.14
+    restart: always
+    ports:
+      - 18083:18083
+      - 8083:8083
+    environment:
+      - name=value

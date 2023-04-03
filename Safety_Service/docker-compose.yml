@@ -29,12 +29,20 @@ services:
     restart: always
     ports:
       - 18083:18083
+      - 18084:18084
+      - 1883:1883
+      - 8883:8883
       - 8083:8083
+      - 8084:8084
+      - 8085:8081
 
     volumes:
       - vol-emqx-data:/opt/emqx/data
       - vol-emqx-etc:/opt/emqx/etc
       - vol-emqx-log:/opt/emqx/log
+
+    links:
+      - mongo
 
     environment:
       
@@ -43,6 +51,43 @@ services:
 
       TZ: "Europe/Madrid"
 
+      # Máximas conexiones por Defecto
       EMQX_DASHBOARD__DEFAULT_USER__PASSWORD: "admin"
 
+      # Configuración de Atenticación MongoDB
+      EMQX_ALLOW_ANONYMOUS: "false"
+
+      # Conexión con MongoDB
+      EMQX_AUTH__MONGO__TYPE: single
+      EMQX_AUTH__MONGO__TOPOLOGY__POOL_SIZE: 1
+      EMQX_AUTH__MONGO__TOPOLOGY__MAX_OVERFLOW: 0
+      
+      EMQX_AUTH__MONGO__SERVER: "mongo:27017"
+      EMQX_AUTH__MONGO__POOL: 8
+      
+      EMQX_AUTH__MONGO__LOGIN: "devuser"
+      EMQX_AUTH__MONGO__PASSWORD: "devpass"
+      EMQX_AUTH__MONGO__AUTH_SOURCE: admin
+
+      EMQX_AUTH__MONGO__DATABASE: "safety"
+      EMQX_AUTH__MONGO__AUTH_QUERY__COLLECTION: "emqxauth"
+
+      EMQX_AUTH__MONGO__SUPER_QUERY__COLLECTION: "emqxauth"
+      EMQX_AUTH__MONGO__SUPER_QUERY__SUPER_FIELD: "is_superuser"
+      EMQX_AUTH__MONGO__SUPER_QUERY__SELECTOR: "username=%u"
+      EMQX_AUTH__MONGO__SUPER_QUERY: "off"
+
+      EMQX_AUTH__MONGO__AUTH_QUERY__PASSWORD_HASH: plain
+      EMQX_AUTH__MONGO__AUTH_QUERY__PASSWORD_FIELD: "password"
+      EMQX_AUTH__MONGO__AUTH_QUERY__SELECTOR: "username=%u"
+
+      # Activación de la Lista de Control de Acceso (ACL)
+      EMQX_AUTH__MONGO__ACL_QUERY: "on"
+      EMQX_AUTH__MONGO__ACL_QUERY__COLLECTION: "emqxauth"
+      EMQX_AUTH__MONGO__ACL_QUERY__SELECTOR: "username=%u"
+
+      # Activación de Plugins principales
+      EMQX_LOADED_PLUGINS: "emqx_recon,emqx_management,emqx_dashboard,emqx_auth_mongo"
+
+      # Configuración Broker EMQX
       EMQX_LISTENER__TCP__EXTERNAL__MAX_CONNECTIONS: 1000

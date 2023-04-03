@@ -1,5 +1,27 @@
 version: '3.8'
+
+volumes:
+  vol-emqx-data:
+    name: foo-emqx-data
+  vol-emqx-etc:
+    name: foo-emqx-etc
+  vol-emqx-log:
+    name: foo-emqx-log
+
 services:
+
+  mongo:
+    container_name: mongo
+    image: mongo:4.4
+    restart: always
+    environment:
+      TZ: "Europe/Madrid"
+      MONGO_INITDB_ROOT_USERNAME: "devuser"
+      MONGO_INITDB_ROOT_PASSWORD: "devpass"
+    volumes:
+      - ./mongodata:/data/db
+    ports:
+      - 27017:27017
 
   emqx:
     container_name: emqx
@@ -8,5 +30,19 @@ services:
     ports:
       - 18083:18083
       - 8083:8083
+
+    volumes:
+      - vol-emqx-data:/opt/emqx/data
+      - vol-emqx-etc:/opt/emqx/etc
+      - vol-emqx-log:/opt/emqx/log
+
     environment:
-      - name=value
+      
+      EMQX_NAME: Safety_APP
+      EMQX_HOST: 127.0.0.1
+
+      TZ: "Europe/Madrid"
+
+      EMQX_DASHBOARD__DEFAULT_USER__PASSWORD: "admin"
+
+      EMQX_LISTENER__TCP__EXTERNAL__MAX_CONNECTIONS: 1000

@@ -4,7 +4,6 @@
       <ul class="nav">
         <li class="nav-item">
           <a
-            href=""
             target="_blank"
             rel="noopener"
             class="nav-link"
@@ -14,7 +13,6 @@
         </li>
         <li class="nav-item">
           <a
-            href=""
             target="_blank"
             rel="noopener"
             class="nav-link"
@@ -24,7 +22,7 @@
         </li>
         <li class="nav-item">
           <a
-            href=""
+            href="https://universidadeuropea.com/"
             target="_blank"
             rel="noopener"
             class="nav-link"
@@ -37,7 +35,7 @@
         &copy; {{ year }}, Diseñado por el 
         
         <a
-          href=""
+          style="color:#C733FF;"
           target="_blank"
           rel="noopener"
           >Equipo Safety</a

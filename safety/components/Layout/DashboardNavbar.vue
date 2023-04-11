@@ -16,7 +16,7 @@
           <span class="navbar-toggler-bar bar3"></span>
         </button>
       </div>
-      <a class="navbar-brand ml-xl-3 ml-5" href="#pablo">{{ routeName }}</a>
+      <a class="navbar-brand ml-xl-3 ml-5">{{ routeName }}</a>
     </div>
 
     <ul class="navbar-nav" :class="$rtl.isRTL ? 'mr-auto' : 'ml-auto'">
@@ -44,7 +44,7 @@
           type="text"
           class="form-control"
           id="inlineFormInputGroup"
-          placeholder="SEARCH"
+          placeholder="Buscar"
         />
       </modal>
       <base-dropdown
@@ -87,7 +87,7 @@
         <template
           slot="title"
         >
-          <div class="photo"><img src="img/mike.jpg" /></div>
+          <div class="photo"><img src="img/usuario.png" /></div>
           <b class="caret d-none d-lg-block d-xl-block"></b>
           <p class="d-lg-none">Salir</p>
         </template>

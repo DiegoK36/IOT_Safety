@@ -1,25 +1,10 @@
-/*!
-
- =========================================================
- * Nuxt Black Dashboard - v1.1.0
- =========================================================
-
- * Product Page: https://www.creative-tim.com/product/nuxt-black-dashboard
- * Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
- * Coded by Creative Tim
-
- =========================================================
-
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- */
 export default {
   mode: "universal",
   /*
    ** Headers of the page
    */
   head: {
-    title: "Nuxt Black Dashboard",
+    title: "Safety APP",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -30,7 +15,7 @@ export default {
       },
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.png" },
+      { rel: "logo", type: "logo", href: "logo.png" },
       {
         rel: "stylesheet",
         href:

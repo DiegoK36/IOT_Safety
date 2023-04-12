@@ -144,7 +144,7 @@
       </card>
     </div>
 
-    <pre> {{ devices }}</pre>
+    <Json :value="devices"></Json>
 
   </div>
 </template>
@@ -153,10 +153,12 @@
 import { Table, TableColumn } from "element-ui";
 import { Select, Option } from "element-ui";
 import BaseSwitch from '../components/BaseSwitch.vue';
+import Json from '../components/Json.vue';
 
 export default {
   components: {
     BaseSwitch,
+    Json,
     [Table.name]: Table,
     [TableColumn.name]: TableColumn,
     [Option.name]: Option,

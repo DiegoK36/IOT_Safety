@@ -5,6 +5,14 @@
           <h4 class="card-title"> {{ config.selectedDevice.name }} - {{ config.FullName }} </h4>
         </div>
 
+        <base-button
+            type="primary"
+            class="mb-3 pull-right"
+            size="lg"
+            @click="sendValue()"
+            >Añadir
+        </base-button >
+
         <i class="fa " :class="[config.icon, getColor()]" style="font-size: 40px"></i>
 
     </card>
@@ -12,45 +20,41 @@
 
 <script>
 export default {
-    //props: ['config']
+    props: ['config'],
     data() {
         return {
-            value: true,
-            config: {
-                userID:'userid',
-                selectedDevice: {
-                    name: "Despacho A",
-                    dId: "5",
-                    templateName: "Sensor de Luz",
-                    templateId: "2",
-                    guardar: true,
-                },
-                FullName: "Sensor de Luz",
-                variable: "unicoSTR",
-                icon: "fa-sun",
-                column: "col-6",
-                widget: "indicador",
-                class: "success"
-            }
+            sending: false,
         };
     },
 
     mounted() {
-        this.$nuxt.$on('Luztopic', this.proccessData);
+        
     },
 
     methods: {
 
-        proccessData(data){
-            console.log('Recibido');
-            console.log(data);
-            this.value = data.value;
+        sendValue() {
+            this.sending = true;
+
+            setTimeout(()=> {
+                this.sending = false;
+            }, 500);
+
+            const toSend = {
+                topic: this.config.userID + "/" + this.config.selectedDevice.dID + "/" + this.config.variable + "/actdata",
+                msg: {
+                    value: this.config.message
+                }
+            };
+
+            console.log(toSend);
+            this.$nuxt.$emit('mqtt-sender', toSend);
 
         },
 
-        getColor(){
+        getColor() {
             
-            if(!this.value){
+            if(!this.sending){
                 return "text-dark";
             }
 

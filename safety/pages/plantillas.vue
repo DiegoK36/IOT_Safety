@@ -8,7 +8,6 @@
                 </div>
 
                 <div class="row">
-
                     <!-- Selector y Formulario -->
                     <div class="col-6">
 
@@ -52,7 +51,7 @@
                         <div v-if="widgetType == 'grafico'">
                         <base-input
                             v-model="ncConfig.variableFullName"
-                            label="Var Name"
+                            label="Nombre de la Variable"
                             type="text"
                         >
                         </base-input>
@@ -62,14 +61,14 @@
 
                         <base-input
                             v-model.number="ncConfig.decimalPlaces"
-                            label="Decimal Places"
+                            label="Número de Decimales"
                             type="number"
                         >
                         </base-input>
 
                         <base-input
                             v-model="ncConfig.icon"
-                            label="Icon"
+                            label="Icono - FaIcons"
                             type="text"
                         >
                         </base-input>
@@ -78,7 +77,7 @@
 
                         <base-input
                             v-model.number="ncConfig.variableSendFreq"
-                            label="Send Freq"
+                            label="Frecuencia de Envío"
                             type="number"
                         >
                         </base-input>
@@ -87,7 +86,7 @@
 
                         <base-input
                             v-model.number="ncConfig.chartTimeAgo"
-                            label="Chart Back Time (mins)"
+                            label="Tiempo de medida del Gráfico (Minutos)"
                             type="number"
                         >
                         </base-input>
@@ -97,31 +96,31 @@
                         <el-select
                             v-model="ncConfig.class"
                             class="select-success"
-                            placeholder="Select Class"
+                            placeholder="Selecciona un Color"
                             style="width: 100%;"
                         >
                             <el-option
                                 class="text-success"
                                 value="success"
-                                label="Success"
+                                label="Verde"
                             >
                             </el-option>
                             <el-option
                                 class="text-primary"
                                 value="primary"
-                                label="Primary"
+                                label="Rosa"
                             >
                             </el-option>
                             <el-option
                                 class="text-warning"
                                 value="warning"
-                                label="Warning"
+                                label="Naranja"
                             >
                             </el-option>
                             <el-option
                                 class="text-danger"
                                 value="danger"
-                                label="Danger"
+                                label="Rojo"
                             >
                             </el-option>
                         </el-select>
@@ -131,7 +130,7 @@
                         <el-select
                             v-model="ncConfig.column"
                             class="select-success"
-                            placeholder="Select Column Width"
+                            placeholder="Selecciona el Tamaño del Widget"
                             style="width: 100%;"
                         >
                             <el-option
@@ -203,15 +202,15 @@
                         <!-- Formulario Switch -->
                         <div v-if="widgetType == 'switch'">
                         <base-input
-                            v-model="iotSwitchConfig.variableFullName"
-                            label="Var Name"
+                            v-model="SwitchConfig.variableFullName"
+                            label="Nombre de la Variable"
                             type="text"
                         >
                         </base-input>
 
                         <base-input
-                            v-model="iotSwitchConfig.icon"
-                            label="Icon"
+                            v-model="SwitchConfig.icon"
+                            label="Icono"
                             type="text"
                         >
                         </base-input>
@@ -219,7 +218,7 @@
                         <br />
 
                         <el-select
-                            v-model="iotSwitchConfig.class"
+                            v-model="SwitchConfig.class"
                             class="select-success"
                             placeholder="Select Class"
                             style="width: 100%;"
@@ -227,25 +226,25 @@
                             <el-option
                                 class="text-success"
                                 value="success"
-                                label="Success"
+                                label="Verde"
                             >
                             </el-option>
                             <el-option
                                 class="text-primary"
                                 value="primary"
-                                label="Primary"
+                                label="Rosa"
                             >
                             </el-option>
                             <el-option
                                 class="text-warning"
                                 value="warning"
-                                label="Warning"
+                                label="Naranja"
                             >
                             </el-option>
                             <el-option
                                 class="text-danger"
                                 value="danger"
-                                label="Danger"
+                                label="Rojo"
                             >
                             </el-option>
                         </el-select>
@@ -253,7 +252,7 @@
                     <br /><br /><br />
 
                         <el-select
-                            v-model="iotSwitchConfig.column"
+                            v-model="SwitchConfig.column"
                             class="select-success"
                             placeholder="Select Column Width"
                             style="width: 100%;"
@@ -328,28 +327,28 @@
                         <div v-if="widgetType == 'boton'">
                         <base-input
                             v-model="configButton.variableFullName"
-                            label="Var Name"
+                            label="Nombre de la Variable"
                             type="text"
                         >
                         </base-input>
 
                         <base-input
                             v-model="configButton.message"
-                            label="Message to send"
+                            label="Mensaje para Enviar"
                             type="text"
                         >
                         </base-input>
 
                         <base-input
                             v-model="configButton.text"
-                            label="Button Text"
+                            label="Texto del Botón"
                             type="text"
                         >
                         </base-input>
 
                         <base-input
                             v-model="configButton.icon"
-                            label="Icon"
+                            label="Icono del Widget"
                             type="text"
                         >
                         </base-input>
@@ -365,25 +364,25 @@
                             <el-option
                                 class="text-success"
                                 value="success"
-                                label="Success"
+                                label="Verde"
                             >
                             </el-option>
                             <el-option
                                 class="text-primary"
                                 value="primary"
-                                label="Primary"
+                                label="Rosa"
                             >
                             </el-option>
                             <el-option
                                 class="text-warning"
                                 value="warning"
-                                label="Warning"
+                                label="Naranja"
                             >
                             </el-option>
                             <el-option
                                 class="text-danger"
                                 value="danger"
-                                label="Danger"
+                                label="Rojo"
                             >
                             </el-option>
                         </el-select>
@@ -465,15 +464,15 @@
                         <div v-if="widgetType == 'indicador'">
 
                         <base-input
-                            v-model="iotIndicatorConfig.variableFullName"
-                            label="Var Name"
+                            v-model="IndicatorConfig.variableFullName"
+                            label="Nombre de la Variable"
                             type="text"
                         >
                         </base-input>
 
                         <base-input
-                            v-model="iotIndicatorConfig.icon"
-                            label="Icon"
+                            v-model="IndicatorConfig.icon"
+                            label="Icono"
                             type="text"
                         >
                         </base-input>
@@ -481,8 +480,8 @@
                     <br />
 
                         <base-input
-                            v-model="iotIndicatorConfig.variableSendFreq"
-                            label="Send Freq"
+                            v-model="IndicatorConfig.variableSendFreq"
+                            label="Frecuencia de Envío"
                             type="text"
                         >
                         </base-input>
@@ -490,7 +489,7 @@
                     <br />
 
                         <el-select
-                            v-model="iotIndicatorConfig.class"
+                            v-model="IndicatorConfig.class"
                             class="select-success"
                             placeholder="Select Class"
                             style="width: 100%;"
@@ -498,25 +497,25 @@
                             <el-option
                                 class="text-success"
                                 value="success"
-                                label="Success"
+                                label="Verde"
                             >
                             </el-option>
                             <el-option
                                 class="text-primary"
                                 value="primary"
-                                label="Primary"
+                                label="Rosa"
                             >
                             </el-option>
                             <el-option
                                 class="text-warning"
                                 value="warning"
-                                label="Warning"
+                                label="Naranja"
                             >
                             </el-option>
                             <el-option
                                 class="text-danger"
                                 value="danger"
-                                label="Danger"
+                                label="Rojo"
                             >
                             </el-option>
                         </el-select>
@@ -524,7 +523,7 @@
                     <br /><br /><br />
 
                         <el-select
-                            v-model="iotIndicatorConfig.column"
+                            v-model="IndicatorConfig.column"
                             class="select-success"
                             placeholder="Select Column Width"
                             style="width: 100%;"
@@ -594,31 +593,35 @@
                     <br /><br />
                         </div>
 
-                        <!-- WIDGET PREVIEW -->
+                    </div>
+
+                        <!-- Preview del Widget -->
                         <div class="col-6">
                     <Grafico
                         v-if="widgetType == 'grafico'"
                         :config="ncConfig"
                     >
                     </Grafico>
-                    <Switch
+                    <SwitchSafe
                         v-if="widgetType == 'switch'"
                         :config="SwitchConfig"
                     >
-                    </Switch>
-                    <boton
+                    </SwitchSafe>
+                    <Boton
                         v-if="widgetType == 'boton'"
                         :config="configButton"
                     >
-                    </boton>
+                    </Boton>
                     <Indicador
                         v-if="widgetType == 'indicador'"
                         :config="IndicatorConfig"
                     >
                     </Indicador>
                         </div>
+                    
+                    </div>
 
-                        <!-- ADD WIDGET BUTTON -->
+                        <!-- Botón de Añadir Widget -->
                         <div class="row pull-right">
                         <div class="col-12">
                         <base-button
@@ -628,28 +631,72 @@
                             size="lg"
                             @click="addNewWidget()"
                         >
-                        Add Widget
+                        Añadir Widget
                         </base-button>
           </div>
                         </div>
-                    </div>
 
-                </div>
+
             </card>
-        </div>  
+        </div>
+
+        <!-- DASHBOARD PREVIEW -->
+        <div class="row">
+        <div
+            v-for="(widget, index) in widgets"
+            :key="index"
+            :class="[widget.column]"
+        >
+            <i
+            aria-hidden="true"
+            class="fa fa-trash text-warning pull-right"
+            @click="deleteWidget(index)"
+            style="margin-bottom: 10px;"
+            ></i>
+
+            <Grafico
+            v-if="widget.widget == 'grafico'"
+            :config="widget"
+            ></Grafico>
+
+            <SwitchSafe
+            v-if="widget.widget == 'switch'"
+            :config="widget"
+            ></SwitchSafe>
+
+            <Boton
+            v-if="widget.widget == 'boton'"
+            :config="widget"
+            ></Boton>
+
+            <Indicador
+            v-if="widget.widget == 'indicador'"
+            :config="widget"
+            ></Indicador>
+        </div>
+        </div>
+
+        <Json :value="widgets"></Json>
     </div>
 </template>
 
 <script>
-
+import { Table, TableColumn } from "element-ui";
+import { Select, Option } from "element-ui";
 import Indicador from '../components/Widgets/Indicador.vue';
 import Boton from '../components/Widgets/Boton.vue';
 import Grafico from '../components/Widgets/Grafico.vue';
-import Switch from '../components/Widgets/Switch.vue';
+import SwitchSafe from '../components/Widgets/SwitchSafe.vue';
+import Json from '../components/Json.vue';
 
 export default {
 
-    components: { Indicador, Boton, Grafico, Switch },
+    components: { Indicador, Boton, Grafico, SwitchSafe, Json,
+    [Table.name]: Table,
+    [TableColumn.name]: TableColumn,
+    [Option.name]: Option,
+    [Select.name]: Select
+    },
 
     data() {
         return {
@@ -661,21 +708,21 @@ export default {
             templateDescription: "",
 
             ncConfig: {
-                userId: "sampleuserid",
+                userId: "userid",
                 selectedDevice: {
-                    name: "Home",
+                    name: "Despacho A",
                     dId: "8888"
                 },
-                variableFullName: "temperature",
+                variableFullName: "Temperatura",
                 variable: "varname",
                 variableType: "input",
                 variableSendFreq: "30",
-                unit: "Watts",
-                class: "success",
+                unit: "ºC",
+                class: "danger",
                 column: "col-12",
                 decimalPlaces: 2,
-                widget: "numberchart",
-                icon: "fa-sun",
+                widget: "grafico",
+                icon: "fa-thermometer",
                 chartTimeAgo: 60,
                 demo: true
             },
@@ -683,57 +730,61 @@ export default {
             SwitchConfig: {
                 userId: "userid",
                 selectedDevice: {
-                    name: "Home",
+                    name: "Entrada Oficina",
                     dId: "8888"
                 },
-                variableFullName: "Luz",
+                variableFullName: "Activar Motor",
                 variable: "varname",
                 variableType: "output",
                 class: "danger",
                 widget: "switch",
-                icon: "fa-bath",
+                icon: "fa-sun",
                 column: "col-6"
             },
 
             IndicatorConfig: {
                 userId: "userid",
                 selectedDevice: {
-                    name: "Home",
+                    name: "Despacho de Seguridad",
                     dId: "8888"
                 },
-                variableFullName: "temperature",
+                variableFullName: "Sendor de Movimiento",
                 variable: "varname",
                 variableType: "input",
                 variableSendFreq: "30",
                 class: "success",
-                widget: "indicator",
-                icon: "fa-bath",
+                widget: "indicador",
+                icon: "fa-sun",
                 column: "col-6"
             },
 
             configButton: {
                 userId: "userid",
                 selectedDevice: {
-                    name: "Home",
+                    name: "Despacho C",
                     dId: "8888",
                     templateName: "Power Sensor",
                     templateId: "984237562348756ldksjfh",
                     saverRule: false
                 },
-                variableFullName: "Pump",
+                variableFullName: "Encender Luz",
                 variable: "var1",
                 variableType: "output",
                 icon: "fa-sun",
                 column: "col-4",
-                widget: "button",
+                widget: "boton",
                 class: "danger",
-                message: "{'fanstatus': 'stop'}"
+                message: "Hola Mundo"
             },
         }
     },
 
     methods: {
-
+        addNewWidget() {
+            if(this.widgetType == "grafico") {
+                this.widgets.push(JSON.parse(JSON.stringify(this.ncConfig)));
+            }
+        }
     }
 }
 </script>

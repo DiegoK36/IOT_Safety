@@ -6,7 +6,7 @@
         <template slot="header">
 
 
-            <h5 class="card-category pull-right">{{getTimeAgo((nowTime - time) / 1000)}} ago </h5>
+            <h5 class="card-category pull-right">{{getTimeAgo((nowTime - time) / 1000)}} </h5>
 
           
             <h5 class="card-category">{{ config.selectedDevice.name }} - {{ config.variableFullName }}</h5>
@@ -20,7 +20,7 @@
         </template>
 
         <div class="chart-area" style="height: 300px">
-            <highchart style="height: 100%" v-if="isMounted" :options="chartOptions"/>
+            <highchart style="height: 100%" v-if="isMounted" :options="chartOptions"></highchart>
         </div>
 
     </card>
@@ -28,9 +28,10 @@
 
 </template>
 
-
 <script>
+
     export default {
+
         name: 'grafico',
         props: ['config'],
         data() {

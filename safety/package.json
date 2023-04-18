@@ -1,11 +1,12 @@
 {
   "name": "safety",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "description": "Safety DashBoard UEM",
   "author": "DiegoK36",
   "private": true,
   "scripts": {
     "dev": "nuxt",
+    "dev2": "nodemon api/index.js --exec babel-node",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"

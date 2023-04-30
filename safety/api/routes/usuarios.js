@@ -6,32 +6,74 @@ const bcrypt = require("bcrypt");
 // Importamos modelos
 import Usuario from "../models/usuario.js";
 
+// Registro
+router.post("/registro", async (req, res) => {
+  try {
+    const passwd = req.body.passwd;
+    const name = req.body.name;
+    const email = req.body.email;
+
+    const encryptedPasswd = bcrypt.hashSync(passwd, 10);
+
+    const newUser = {
+      name: name,
+      email: email,
+      passwd: encryptedPasswd,
+    };
+
+    var user = await Usuario.create(newUser);
+  } catch (error) {
+    console.log("ERROR - Registro");
+    console.log(error);
+
+    const toSend = {
+      status: "Error",
+      error: error,
+    };
+
+    res.status(500).json(toSend);
+  }
+});
+
 // Iniciar Sesión
 router.post("/login", async (req, res) => {
+  const email = req.body.email;
+  const passwd = req.body.passwd;
 
-  });
-  
-// Registro
-router.post("/register", async (req, res) => {
+  var usuario_login = await Usuario.findOne({ email: email });
 
-  });
+  // Si no existe el Email
+  if (!usuario_login) {
+    const toSend = {
+      status: "Error",
+      error: "Credenciales Inválidas",
+    };
+    return res.status(401).json(toSend);
+  }
 
-router.get("/nuevo-usuario", async (req, res) => {
+  // Si el Email y Passwd OK
+  if (bcrypt.compareSync(passwd, usuario_login.passwd)) {
+    usuario_login.set("passwd", undefined, { strict: false });
 
-    try {
-        
-        const usuario = await Usuario.create({
-            nombre: "Diego",
-            email: "Diego@gmail.com",
-            passwd: "12345678"
-        });
-        res.json({"status":"success"});
+    const token = jwt.sign({ userData: usuario_login }, "securePasswd", {
+      expiresIn: 60 * 60,
+    });
 
-    } catch (error) {
-        
-        res.json({"status":"fail"});
+    const toSend = {
+      status: "Acierto",
+      token: token,
+      userData: usuario_login,
+    };
+    return res.json(toSend);
 
-    }
-})
+    // Si Passwd es Incorrecta
+  } else {
+    const toSend = {
+      status: "Error",
+      error: "Credenciales Inválidas",
+    };
+    return res.status(401).json(toSend);
+  }
+});
 
 module.exports = router;

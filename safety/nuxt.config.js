@@ -1,5 +1,5 @@
 export default {
-  mode: "universal",
+  ssr: false,
   /*
    ** Headers of the page
    */
@@ -54,10 +54,24 @@ export default {
    ** Nuxt.js dev-modules
    */
   buildModules: [],
+
   /*
    ** Nuxt.js modules
    */
-  modules: ["@nuxtjs/pwa"],
+  modules: [
+    "@nuxtjs/pwa",
+    "@nuxtjs/axios",
+    "nuxt-highcharts"
+  ],
+
+  axios: {
+    baseURL: "http://127.0.0.1:3001/api"
+  },
+
+  serverMiddleware: {
+    '/api': '~/api'
+  },
+
   /*
    ** Build configuration
    */

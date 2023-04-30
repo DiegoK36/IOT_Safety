@@ -691,6 +691,8 @@ import Json from '../components/Json.vue';
 
 export default {
 
+    middleware: "Identificado",
+
     components: { Indicador, Boton, Grafico, SwitchSafe, Json,
     [Table.name]: Table,
     [TableColumn.name]: TableColumn,

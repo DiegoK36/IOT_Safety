@@ -21,58 +21,66 @@ router.post("/registro", async (req, res) => {
       passwd: encryptedPasswd,
     };
 
+    const respuesta = {
+      status: "Éxito"
+    };
+
     var user = await Usuario.create(newUser);
+
+    return res.json(respuesta);
+
   } catch (error) {
     console.log("ERROR - Registro");
     console.log(error);
 
-    const toSend = {
+    const respuesta = {
       status: "Error",
       error: error,
     };
 
-    res.status(500).json(toSend);
+    return res.status(500).json(respuesta);
   }
 });
 
 // Iniciar Sesión
 router.post("/login", async (req, res) => {
+  
   const email = req.body.email;
   const passwd = req.body.passwd;
 
-  var usuario_login = await Usuario.findOne({ email: email });
+  var usuario = await Usuario.findOne({ email: email });
 
   // Si no existe el Email
-  if (!usuario_login) {
-    const toSend = {
+  if (!usuario) {
+    const respuesta = {
       status: "Error",
-      error: "Credenciales Inválidas",
+      error: "Credenciales Inválidas"
     };
-    return res.status(401).json(toSend);
+    return res.status(401).json(respuesta);
   }
 
   // Si el Email y Passwd OK
-  if (bcrypt.compareSync(passwd, usuario_login.passwd)) {
-    usuario_login.set("passwd", undefined, { strict: false });
+  if (bcrypt.compareSync(passwd, usuario.passwd)) {
+    usuario.set("passwd", undefined, { strict: false });
 
-    const token = jwt.sign({ userData: usuario_login }, "securePasswd", {
-      expiresIn: 60 * 60,
+    const token = jwt.sign({ userData: usuario }, "securePasswd", {
+      expiresIn: 60 * 60
     });
 
-    const toSend = {
-      status: "Acierto",
+    const respuesta = {
+      status: "Éxito",
       token: token,
-      userData: usuario_login,
+      userData: usuario,
     };
-    return res.json(toSend);
+    return res.json(respuesta);
 
     // Si Passwd es Incorrecta
   } else {
-    const toSend = {
+    const respuesta = {
       status: "Error",
       error: "Credenciales Inválidas",
     };
-    return res.status(401).json(toSend);
+    return res.status(401).json(respuesta);
   }
 });
 

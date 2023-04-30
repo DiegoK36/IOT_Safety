@@ -5,7 +5,7 @@
 
 <script>
     export default {
-        //middleware: "authenticated",
+        middleware: "Identificado",
         mounted() {
             $nuxt.$router.push("/dashboard");
         }

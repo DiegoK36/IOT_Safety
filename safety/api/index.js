@@ -22,6 +22,7 @@ app.use(cors());
 //Express Routes
 app.use("/api", require("./routes/dispositivos.js"));
 app.use("/api", require("./routes/usuarios.js"));
+app.use("/api", require("./routes/plantillas.js"));
  
 module.exports = app;
 

@@ -86,21 +86,21 @@
  
         <el-table :data="$store.state.devices">
           
-          <el-table-column label="ola" min-width="50" align="center">
+          <el-table-column header="#" prop="$" label="#" min-width="50" align="center">
             <div slot-scope="{ row, $index }">
               {{ $index + 1 }}
             </div>
           </el-table-column>
 
-          <el-table-column prop="name" label="Nombre" align="center"></el-table-column>
+          <el-table-column header="name" prop="name" label="Nombre" align="center"></el-table-column>
 
-          <el-table-column prop="dId" label="ID Dispositivo" align="center"></el-table-column>
+          <el-table-column header="ID" prop="dId" label="ID Dispositivo" align="center"></el-table-column>
 
-          <el-table-column prop="templateId" label="ID de Plantilla" align="center"></el-table-column>
+          <el-table-column header="ID2" prop="templateId" label="ID de Plantilla" align="center"></el-table-column>
 
-          <el-table-column prop="templateName" label="Plantilla" align="center"></el-table-column>
+          <el-table-column header="name2" prop="templateName" label="Plantilla" align="center"></el-table-column>
 
-          <el-table-column label="Eliminar" align="center">
+          <el-table-column header="Delete" prop="Eliminate" label="Eliminar" align="center">
 
             <div slot-scope="{ row, $index }">
 
@@ -191,7 +191,7 @@ export default {
             this.$notify({
               type: "success",
               icon: "tim-icons icon-check-2",
-              message: device.name + " deleted!"
+              message: device.name + " ha sido eliminado"
             });
             this.$store.dispatch("getDevices");
           }
@@ -201,13 +201,9 @@ export default {
           this.$notify({
             type: "danger",
             icon: "tim-icons icon-alert-circle-exc",
-            message: " Error deleting " + device.name
+            message: "Error al eliminar " + device.name
           });
         });
-    },
-
-    saveRule(index){
-      this.devices[index].guardar = !this.devices[index].guardar;
     }
   }
 };

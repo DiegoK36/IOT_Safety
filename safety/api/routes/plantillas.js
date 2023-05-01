@@ -4,7 +4,7 @@ const { checkAuth } = require('../middlewares/Identificar.js');
 
 // Importamos modelos
 import Dispositivo from '../models/dispositivo.js';
-import Template from '../models/plantilla.js';
+import Plantilla from '../models/plantilla.js';
 
 //get templates
 router.get('/plantillas', checkAuth, async (req, res) => {
@@ -13,21 +13,16 @@ router.get('/plantillas', checkAuth, async (req, res) => {
 
         const userId = req.userData._id;
 
-        const templates = await Template.find({userId: userId});
-
-        console.log(userId);
-        console.log(templates)
+        const plantillas = await Plantilla.find({userId: userId});
 
         const response = {
             status: "Éxito",
-            data: templates
+            data: plantillas
         }
 
         return res.json(response);
 
     } catch (error) {
-
-        console.log(error);
 
         const response = {
             status: "Error",
@@ -52,7 +47,7 @@ router.post('/plantillas', checkAuth, async (req, res) => {
         newTemplate.userId = userId;
         newTemplate.createdTime = Date.now();
 
-        const r = await Template.create(newTemplate);
+        const r = await Plantilla.create(newTemplate);
 
         const response = {
             status: "Éxito",
@@ -61,8 +56,6 @@ router.post('/plantillas', checkAuth, async (req, res) => {
         return res.json(response)
 
     } catch (error) {
-
-        console.log(error);
 
         const response = {
             status: "Error",
@@ -85,7 +78,6 @@ router.delete('/plantillas', checkAuth, async (req, res) => {
 
         const dispositivos = await Dispositivo.find({userId: userId, templateId: templateId });
 
-
         if (dispositivos.length > 0){
 
             const response = {
@@ -96,7 +88,7 @@ router.delete('/plantillas', checkAuth, async (req, res) => {
             return res.json(response);
         }
 
-        const r = await Template.deleteOne({userId: userId, _id: templateId});
+        const r = await Plantilla.deleteOne({userId: userId, _id: templateId});
 
         const response = {
             status: "Éxito",
@@ -105,8 +97,6 @@ router.delete('/plantillas', checkAuth, async (req, res) => {
         return res.json(response)
 
     } catch (error) {
-
-        console.log(error);
 
         const response = {
             status: "Error",

@@ -12,6 +12,6 @@ const templateSchema = new Schema({
 
 
 // Schema to model.
-const Template = mongoose.model('Template', templateSchema);
+const Plantilla = mongoose.model('Plantilla', templateSchema);
 
-export default Template;
+export default Plantilla;

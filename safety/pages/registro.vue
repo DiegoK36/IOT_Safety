@@ -55,7 +55,7 @@
           </div>
 
           <div class="pull-right">
-            <h6><a href="#help!!!" class="link footer-link">Ayuda</a></h6>
+            <h6><a href="#Ayuda" class="link footer-link">Ayuda</a></h6>
           </div>
         </div>
       </card>

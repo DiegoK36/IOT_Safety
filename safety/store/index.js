@@ -59,7 +59,7 @@ export const state = () => ({
           }
         });
   
-        //if all devices were removed
+        // Si todos los dispositivos han sido borrados
         if (res.data.data.length == 0){
           this.commit("setSelectedDevice", {});
           $nuxt.$emit('selectedDeviceIndex', null);

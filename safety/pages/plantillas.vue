@@ -513,8 +513,8 @@
                     size="sm"
                     class="btn-link"
                   >
-                    <i class="tim-icons icon-simple-remove "></i>
-                </base-button>
+                    <i class="tim-icons icon-simple-remove"></i>
+                  </base-button>
                 </el-tooltip>
               </div>
             </el-table-column>
@@ -579,10 +579,10 @@ export default {
       },
 
       SwitchConfig: {
-        userId: "userid",
+        userId: "",
         selectedDevice: {
-          name: "Entrada Oficina",
-          dId: "8888",
+          name: "",
+          dId: "",
         },
         variableFullName: "Activar Motor",
         variable: "varname",
@@ -594,10 +594,10 @@ export default {
       },
 
       IndicatorConfig: {
-        userId: "userid",
+        userId: "",
         selectedDevice: {
-          name: "Despacho de Seguridad",
-          dId: "8888",
+          name: "",
+          dId: "",
         },
         variableFullName: "Sendor de Movimiento",
         variable: "varname",
@@ -629,18 +629,17 @@ export default {
       },
     };
   },
-  mounted(){
+  mounted() {
     this.getTemplates();
   },
 
   methods: {
-
-    //Get Templates
+    // Lista de Plantillas
     async getTemplates() {
       const axiosHeaders = {
         headers: {
-          token: this.$store.state.auth.token
-        }
+          token: this.$store.state.auth.token,
+        },
       };
       try {
         const res = await this.$axios.get("/plantillas", axiosHeaders);
@@ -652,34 +651,35 @@ export default {
         this.$notify({
           type: "danger",
           icon: "tim-icons icon-alert-circle-exc",
-          message: "Error al obtener las Plantillas"
+          message: "Error al obtener las Plantillas",
         });
         console.log(error);
         return;
       }
     },
-    //Save Template
+    // Guardar una Plantilla
     async guardarPlantilla() {
       const axiosHeaders = {
         headers: {
-          token: this.$store.state.auth.token
-        }
+          token: this.$store.state.auth.token,
+        },
       };
-      console.log(axiosHeaders);
       const toSend = {
         template: {
           name: this.templateName,
           description: this.templateDescription,
-          widgets: this.widgets
-        }
+          widgets: this.widgets,
+        },
       };
       try {
         const res = await this.$axios.post("/plantillas", toSend, axiosHeaders);
         if (res.data.status == "Éxito") {
+          this.templateName = "";
+          this.templateDescription = "";
           this.$notify({
             type: "success",
             icon: "tim-icons icon-alert-circle-exc",
-            message: "Plantilla guardada!"
+            message: "Plantilla guardada!",
           });
           this.getTemplates();
           this.widgets = [];
@@ -688,50 +688,54 @@ export default {
         this.$notify({
           type: "danger",
           icon: "tim-icons icon-alert-circle-exc",
-          message: "Error al guardar la plantilla"
+          message: "Error al guardar la plantilla",
         });
         console.log(error);
         return;
       }
     },
-    //Delete Template
+    // Borrar una Plantilla
     async deleteTemplate(template) {
-      
       const axiosHeaders = {
         headers: {
-          token: this.$store.state.auth.token
+          token: this.$store.state.auth.token,
         },
-        params:{
-          templateId:template._id
-        }
+        params: {
+          templateId: template._id,
+        },
       };
       console.log(axiosHeaders);
       try {
         const res = await this.$axios.delete("/plantillas", axiosHeaders);
-        console.log(res.data)
-        if (res.data.status == "Fallo" && res.data.error == "Plantilla en uso") {
+        console.log(res.data);
+        if (
+          res.data.status == "Fallo" &&
+          res.data.error == "Plantilla en uso"
+        ) {
           this.$notify({
             type: "danger",
             icon: "tim-icons icon-alert-circle-exc",
-            message: template.name + " está en uso. Primero elimina los dispositivos asociados a la plantilla"
+            message:
+              template.name +
+              " está en uso. Primero elimina los dispositivos asociados a la plantilla",
           });
-          
+
           return;
         }
         if (res.data.status == "Éxito") {
           this.$notify({
             type: "success",
             icon: "tim-icons icon-check-2",
-            message: template.name + " ha sido eliminada!"
+            message: template.name + " ha sido eliminada!",
           });
-          
+
           this.getTemplates();
         }
       } catch (error) {
         this.$notify({
           type: "danger",
           icon: "tim-icons icon-alert-circle-exc",
-          message: "Error al obtener las plantillas"
+          message: "Error al obtener las plantillas",
         });
         console.log(error);
         return;
@@ -775,7 +779,7 @@ export default {
         );
       }
       return result;
-    }
+    },
   },
-  };
+};
 </script>

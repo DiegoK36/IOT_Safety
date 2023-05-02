@@ -75,10 +75,11 @@
         <el-table :data="$store.state.devices">
           <el-table-column
             header="#"
-            prop="$"
+            property="$"
             label="#"
             min-width="50"
             align="center"
+            sortable
           >
             <div slot-scope="{ row, $index }">
               {{ $index + 1 }}
@@ -87,37 +88,42 @@
 
           <el-table-column
             header="name"
-            prop="name"
+            property="name"
             label="Nombre"
             align="center"
+            sortable
           ></el-table-column>
 
           <el-table-column
             header="ID"
-            prop="dId"
+            property="dId"
             label="ID Dispositivo"
             align="center"
+            sortable
           ></el-table-column>
 
           <el-table-column
             header="ID2"
-            prop="templateId"
+            property="templateId"
             label="ID de Plantilla"
             align="center"
+            sortable
           ></el-table-column>
 
           <el-table-column
             header="name2"
-            prop="templateName"
+            property="templateName"
             label="Plantilla"
             align="center"
+            sortable
           ></el-table-column>
 
           <el-table-column
             header="Delete"
-            prop="Eliminate"
+            property="Eliminate"
             label="Eliminar"
             align="center"
+            sortable
           >
             <div slot-scope="{ row, $index }">
               <el-tooltip
@@ -128,8 +134,8 @@
                 <i
                   class="fas fa-database"
                   :class="{
-                    'text-success': row.guardar,
-                    'text-danger': !row.guardar,
+                    'text-success': row.saverRule.status,
+                    'text-danger': !row.saverRule.status,
                   }"
                 ></i>
               </el-tooltip>
@@ -137,8 +143,8 @@
               <el-tooltip content="Guardar Database" effect="light">
                 <base-switch
                   type="blue"
-                  @click="saveRule($index)"
-                  :value="row.guardar"
+                  @click="updateRule(row.saverRule)"
+                  :value="row.saverRule.status"
                   on-text="On"
                   off-text="Off"
                 >
@@ -202,11 +208,46 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("getDevices");
     this.getTemplates();
   },
   methods: {
-    //new device
+
+    updateRule(rule){
+
+      var ruleCopy = JSON.parse(JSON.stringify(rule));
+      ruleCopy.status = !ruleCopy.status;
+      
+      const toSend = { 
+        rule: ruleCopy 
+      };
+
+      const axiosHeaders = {
+        headers: {
+          token: this.$store.state.auth.token
+        }
+      };
+
+      this.$axios
+        .put("/regla-guardado", toSend, axiosHeaders)
+        .then(res => {
+          if (res.data.status == "Éxito") {
+            this.$store.dispatch("getDevices");
+          }
+          return;
+        })
+        .catch(e => {
+          console.log(e);
+          this.$notify({
+            type: "danger",
+            icon: "tim-icons icon-alert-circle-exc",
+            message: "Error al actualizar la Regla de Guardado"
+          });
+          return;
+        });
+
+    },
+
+    // Crear un nuevo Dispositivo
     createNewDevice() {
       if (this.newDevice.name == "") {
         this.$notify({
@@ -304,6 +345,7 @@ export default {
       }
     },
 
+    // Borrar un Dispositivo
     deleteDevice(device) {
       const axiosHeader = {
         headers: {

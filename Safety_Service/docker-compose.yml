@@ -44,6 +44,9 @@ services:
     links:
       - mongo
 
+    extra_hosts:
+      - "localhost:192.168.50.27"
+
     environment:
       
       EMQX_NAME: Safety_APP
@@ -51,10 +54,12 @@ services:
 
       TZ: "Europe/Madrid"
 
-      # Máximas conexiones por Defecto
-      EMQX_DASHBOARD__DEFAULT_USER__PASSWORD: "admin"
+      # Contraseña al Dasgboard
+      EMQX_DASHBOARD__DEFAULT_USER__PASSWORD: "emqxadmin"
+      # Contraseña API
+      EMQX_MANAGEMENT__DEFAULT_APPLICATION__SECRET: "secret"
 
-      # Configuración de Atenticación MongoDB
+      # Configuración de Atentificación MongoDB
       EMQX_ALLOW_ANONYMOUS: "false"
 
       # Conexión con MongoDB

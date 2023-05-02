@@ -1,14 +1,344 @@
 <template>
     <div>
-        <h2>
-            Alertas
-        </h2>
+      <!-- Formulario de Alarmas -->
+      <div class="row">
+        <div class="col-sm-12">
+          <card v-if="$store.state.devices.length > 0">
+            <div slot="header">
+              <h4 class="card-title">
+                Crear una Nueva Alerta {{ selectedWidgetIndex }}
+              </h4>
+            </div>
+  
+            <div class="row">
+              <div class="col-3">
+                <el-select
+                  required
+                  class="select-primary"
+                  placeholder="Variable"
+                  v-model="selectedWidgetIndex"
+                  style="margin-top: 25px;"
+                >
+                  <el-option
+                    v-for="(widget, index) in $store.state.selectedDevice.template
+                      .widgets"
+                    :key="index"
+                    class="text-dark"
+                    :value="index"
+                    :label="widget.variableFullName"
+                  ></el-option>
+                </el-select>
+              </div>
+  
+              <div class="col-3">
+                <el-select
+                  required
+                  class="select-warning"
+                  placeholder="Condition"
+                  v-model="newRule.condition"
+                  style="margin-top: 25px;"
+                >
+                  <el-option class="text-dark" value="=" label="="></el-option>
+                  <el-option class="text-dark" value=">" label=">"></el-option>
+                  <el-option class="text-dark" value=">=" label=">="></el-option>
+                  <el-option class="text-dark" value="<" label="<"></el-option>
+                  <el-option class="text-dark" value="<=" label="<="></el-option>
+                  <el-option class="text-dark" value="!=" label="!="></el-option>
+                </el-select>
+              </div>
+  
+              <div class="col-3">
+                <base-input
+                  label="Valor"
+                  v-model="newRule.value"
+                  type="number"
+                ></base-input>
+              </div>
+  
+              <div class="col-3">
+                <base-input
+                  label="Tiempo de Reactivación (Min)"
+                  v-model="newRule.triggerTime"
+                  type="number"
+                ></base-input>
+              </div>
+            </div>
+  
+            <br /><br />
+  
+            <div class="row pull-right">
+              <div class="col-12">
+                <base-button
+                  @click="createNewRule()"
+                  native-type="submit"
+                  type="primary"
+                  class="mb-3"
+                  size="lg"
+                  :disabled="$store.state.devices.length == 0"
+                >
+                  Añadir Alerta
+                </base-button>
+              </div>
+            </div>
+          </card>
+          <card v-else>
+            ADVERTENCIA: Debes seleccionar un Dispositivo para crear una Alerta
+          </card>
+        </div>
+      </div>
+  
+      <!-- Tabla de Alertas -->
+      <div class="row" v-if="$store.state.devices.length > 0">
+        <div class="col-sm-12">
+          <card>
+            <div slot="header">
+              <h4 class="card-title">Alertas Guardas</h4>
+            </div>
+  
+            <el-table
+              v-if="$store.state.selectedDevice.alarmRules.length > 0"
+              :data="$store.state.selectedDevice.alarmRules"
+            >
+              <el-table-column min-width="50" label="#" align="center">
+                <div class="photo" slot-scope="{ row, $index }">
+                  {{ $index + 1 }}
+                </div>
+              </el-table-column>
+  
+              <el-table-column
+                prop="variableFullName"
+                label="Nombre"
+              ></el-table-column>
+  
+              <el-table-column prop="variable" label="Variable"></el-table-column>
+  
+              <el-table-column
+                prop="condition"
+                label="Condición"
+              ></el-table-column>
+  
+              <el-table-column prop="value" label="Valor"></el-table-column>
+  
+              <el-table-column
+                prop="triggerTime"
+                label="Tiempo de Reactivación"
+              ></el-table-column>
+  
+              <el-table-column prop="counter" label="Veces Excedido"></el-table-column>
+  
+              <el-table-column min-width="110" header-align="right" align="right" label="Acciones">
+                <div
+                  slot-scope="{ row, $index }"
+                  class="text-right table-actions"
+                >
+                  <el-tooltip content="Delete" effect="light" placement="top">
+                    <base-button
+                      @click="deleteDevice(row)"
+                      type="danger"
+                      icon
+                      size="sm"
+                      class="btn-link"
+                    >
+                      <i class="tim-icons icon-simple-remove "></i>
+                    </base-button>
+                  </el-tooltip>
+  
+                  <el-tooltip content="Rule Status" style="margin-left: 20px;">
+                    <i
+                      class="fas fa-exclamation-triangle"
+                      :class="{ 'text-warning': row.status }"
+                    ></i>
+                  </el-tooltip>
+                  <el-tooltip
+                    content="Change Rule Status"
+                    style="margin-left: 5px;"
+                  >
+                    <base-switch
+                      @click="updateStatusRule(row)"
+                      :value="row.status"
+                      type="primary"
+                      on-text="ON"
+                      off-text="OFF"
+                      style="margin-top: 10px;"
+                    ></base-switch>
+                  </el-tooltip>
+                </div>
+              </el-table-column>
+            </el-table>
+  
+            <h4 v-else class="card-title">No existen Alertas Guardadas</h4>
+          </card>
+        </div>
+      </div>
     </div>
-</template>
-
-<script>
-
-export default {
-    middleware: "Identificado"
-}
-</script>
+  </template>
+  
+  <script>
+  import { Select, Option } from "element-ui";
+  import { Table, TableColumn } from "element-ui";
+  export default {
+    middleware: "Identificado",
+    components: {
+      [Option.name]: Option,
+      [Select.name]: Select,
+      [Table.name]: Table,
+      [TableColumn.name]: TableColumn
+    },
+    data() {
+      return {
+        alarmRules: [],
+        selectedWidgetIndex: null,
+        newRule: {
+          dId: null,
+          deviceName: null,
+          status: true,
+          variableFullName: null,
+          variable: null,
+          value: null,
+          condition: null,
+          triggerTime: null
+        }
+      };
+    },
+    methods: {
+      deleteDevice(rule) {
+        const axiosHeaders = {
+          headers: {
+            token: this.$store.state.auth.token
+          },
+          params: {
+            emqxRuleId: rule.emqxRuleId
+          }
+        };
+        this.$axios
+          .delete("/alarm-rule", axiosHeaders)
+          .then(res => {
+             if (res.data.status == "Éxito") {
+              this.$notify({
+                type: "success",
+                icon: "tim-icons icon-check-2",
+                message: "La Alarma ha sido eliminada con éxito"
+              });
+              this.$store.dispatch("getDevices");
+              return;
+            }
+          })
+          .catch(e => {
+            this.$notify({
+              type: "danger",
+              icon: "tim-icons icon-alert-circle-exc",
+              message: "Error al eliminar la Alerta"
+            });
+            console.log(e);
+            return;
+          });
+      },
+      updateStatusRule(rule) {
+        const axiosHeaders = {
+          headers: {
+            token: this.$store.state.auth.token
+          }
+        };
+        var ruleCopy = JSON.parse(JSON.stringify(rule));
+        ruleCopy.status = !ruleCopy.status;
+        const toSend = { rule: ruleCopy };
+        this.$axios
+          .put("/alarm-rule", toSend, axiosHeaders)
+          .then(res => {
+            if (res.data.status == "Éxito") {
+              this.$store.dispatch("getDevices");
+              return;
+            }
+          })
+          .catch(e => {
+            this.$notify({
+              type: "danger",
+              icon: "tim-icons icon-alert-circle-exc",
+              message: "Error al cambiar el estado de la Alerta"
+            });
+            console.log(e);
+            return;
+          });
+      },
+      createNewRule() {
+        if (this.selectedWidgetIndex == null) {
+          this.$notify({
+            type: "warning",
+            icon: "tim-icons icon-alert-circle-exc",
+            message: "Debes seleccionar una variable"
+          });
+          return;
+        }
+        if (this.newRule.condition == null) {
+          this.$notify({
+            type: "warning",
+            icon: "tim-icons icon-alert-circle-exc",
+            message: "Debes seleccionar una condición"
+          });
+          return;
+        }
+        if (this.newRule.value == null) {
+          this.$notify({
+            type: "warning",
+            icon: "tim-icons icon-alert-circle-exc",
+            message: "El valor de la Alerta esta vacío"
+          });
+          return;
+        }
+        if (this.newRule.triggerTime == null) {
+          this.$notify({
+            type: "warning",
+            icon: "tim-icons icon-alert-circle-exc",
+            message: "El tiempo de reactivación está vacío"
+          });
+          return;
+        }
+        
+        this.newRule.dId = this.$store.state.selectedDevice.dId;
+        this.newRule.deviceName = this.$store.state.selectedDevice.name;
+        this.newRule.variableFullName = this.$store.state.selectedDevice.template.widgets[
+          this.selectedWidgetIndex
+        ].variableFullName;
+        this.newRule.variable = this.$store.state.selectedDevice.template.widgets[
+          this.selectedWidgetIndex
+        ].variable;
+        
+        const axiosHeaders = {
+          headers: {
+            token: this.$store.state.auth.token
+          }
+        };
+        var toSend = {
+          newRule: this.newRule
+        };
+        this.$axios
+          .post("/alarm-rule", toSend, axiosHeaders)
+          .then(res => {
+            if (res.data.status == "Éxito") {
+              this.newRule.variable = null;
+              this.newRule.condition = null;
+              this.newRule.value = null;
+              this.newRule.triggerTime = null;
+              this.selectedWidgetIndex = null;
+              this.$notify({
+                type: "success",
+                icon: "tim-icons icon-check-2",
+                message: "La alerta se ha creado con éxito!"
+              });
+              this.$store.dispatch("getDevices");
+              return;
+            }
+          })
+          .catch(e => {
+            this.$notify({
+              type: "danger",
+              icon: "tim-icons icon-alert-circle-exc",
+              message: "Error al crear la alerta"
+            });
+            console.log(e);
+            return;
+          });
+      }
+    }
+  };
+  </script>

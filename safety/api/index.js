@@ -23,6 +23,9 @@ app.use(cors());
 app.use("/api", require("./routes/dispositivos.js"));
 app.use("/api", require("./routes/usuarios.js"));
 app.use("/api", require("./routes/plantillas.js"));
+app.use("/api", require("./routes/webhooks.js"));
+app.use("/api", require("./routes/emqxapi.js"));
+app.use("/api", require("./routes/alertas.js"));
  
 module.exports = app;
 

@@ -48,7 +48,7 @@
                     },
                     chart: {
                         renderTo: 'container',
-                        defaultSeriesType: 'line',
+                        defaultSeriesType: 'spline',
                         backgroundColor: 'rgba(0,0,0,0)',
                     },
                     title: {

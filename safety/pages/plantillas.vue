@@ -477,25 +477,25 @@
 
         <div class="row">
           <el-table :data="templates">
-            <el-table-column min-width="50" label="#" align="center">
+            <el-table-column min-width="50" label="#" align="center" property="1">
               <div class="photo" slot-scope="{ row, $index }">
                 {{ $index + 1 }}
               </div>
             </el-table-column>
 
-            <el-table-column prop="name" label="Name"></el-table-column>
+            <el-table-column property="name" label="Name"></el-table-column>
 
             <el-table-column
-              prop="description"
+            property="description"
               label="Descripción"
             ></el-table-column>
 
             <el-table-column
-              prop="widgets.length"
+            property="widgets.length"
               label="Widgets"
             ></el-table-column>
 
-            <el-table-column header-align="right" align="right" label="Actions">
+            <el-table-column header-align="right" align="right" label="Actions" property="2">
               <div
                 slot-scope="{ row, $index }"
                 class="text-right table-actions"

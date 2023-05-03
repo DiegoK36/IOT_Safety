@@ -141,7 +141,6 @@ export default {
 
   mounted(){
     this.$store.dispatch("getDevices");
-    this.$store.dispatch("getNotifications");
     this.$nuxt.$on("selectedDeviceIndex", this.updateSelectedDeviceIndex);
   },
   methods: {

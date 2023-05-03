@@ -80,7 +80,7 @@
                 type: "success",
                 type: "success",
                 icon: "tim-icons icon-check-2",
-                message: "Bienvenido de nuevo " + res.data.userData.name + " !"
+                message: "Bienvenido de nuevo " + res.data.userData.name + "!"
               });
               
               const auth = {
@@ -97,8 +97,6 @@
             }
           })
           .catch(e => {
-            console.log(e.response.data);
-
               this.$notify({
                 type: "danger",
                 icon: "tim-icons icon-alert-circle-exc",

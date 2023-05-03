@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const { checkAuth } = require("../middlewares/authentication.js");
+const { checkAuth } = require("../middlewares/Identificar.js");
 const colors = require("colors");
 import AlarmRule from "../models/emqx_alarm.js";
 

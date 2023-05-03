@@ -125,31 +125,13 @@
               ></el-table-column>
   
               <el-table-column prop="counter" label="Veces Excedido"></el-table-column>
-  
+
               <el-table-column min-width="110" header-align="right" align="right" label="Acciones">
                 <div
                   slot-scope="{ row, $index }"
-                  class="text-right table-actions"
+                  class="table-actions"
                 >
-                  <el-tooltip content="Delete" effect="light" placement="top">
-                    <base-button
-                      @click="deleteDevice(row)"
-                      type="danger"
-                      icon
-                      size="sm"
-                      class="btn-link"
-                    >
-                      <i class="tim-icons icon-simple-remove "></i>
-                    </base-button>
-                  </el-tooltip>
-  
-                  <el-tooltip content="Rule Status" style="margin-left: 20px;">
-                    <i
-                      class="fas fa-exclamation-triangle"
-                      :class="{ 'text-warning': row.status }"
-                    ></i>
-                  </el-tooltip>
-                  <el-tooltip
+                <el-tooltip
                     content="Change Rule Status"
                     style="margin-left: 5px;"
                   >
@@ -162,11 +144,37 @@
                       style="margin-top: 10px;"
                     ></base-switch>
                   </el-tooltip>
+                  <el-tooltip content="Rule Status" style="margin-left: 20px;">
+                    <i
+                      class="fas fa-exclamation-triangle"
+                      :class="{ 'text-warning': row.status }"
+                    ></i>
+                  </el-tooltip>
+                  
+                </div>
+              </el-table-column>
+  
+              <el-table-column header-align="right" align="right" label="Acciones">
+                <div
+                  slot-scope="{ row, $index }"
+                  class="table-actions"
+                >
+                  <el-tooltip content="Delete" effect="light" placement="top">
+                    <base-button
+                      @click="deleteDevice(row)"
+                      type="danger"
+                      icon
+                      size="sm"
+                      class="btn-link"
+                    >
+                      <i class="tim-icons icon-simple-remove "></i>
+                    </base-button>
+                  </el-tooltip>
                 </div>
               </el-table-column>
             </el-table>
   
-            <h4 v-else class="card-title">No existen Alertas Guardadas</h4>
+            <h4 v-else class="card-title">No existen Alertas en este Dispositivo</h4>
           </card>
         </div>
       </div>
@@ -176,9 +184,11 @@
   <script>
   import { Select, Option } from "element-ui";
   import { Table, TableColumn } from "element-ui";
+  import BaseSwitch from "../components/BaseSwitch.vue";
   export default {
     middleware: "Identificado",
     components: {
+      BaseSwitch,
       [Option.name]: Option,
       [Select.name]: Select,
       [Table.name]: Table,

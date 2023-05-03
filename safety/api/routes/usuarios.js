@@ -21,24 +21,24 @@ router.post("/registro", async (req, res) => {
       passwd: encryptedPasswd,
     };
 
-    const respuesta = {
+    const response = {
       status: "Éxito"
     };
 
     var user = await Usuario.create(newUser);
 
-    return res.json(respuesta);
+    return res.json(response);
 
   } catch (error) {
     console.log("ERROR - Registro");
     console.log(error);
 
-    const respuesta = {
+    const response = {
       status: "Error",
       error: error,
     };
 
-    return res.status(500).json(respuesta);
+    return res.status(500).json(response);
   }
 });
 
@@ -52,11 +52,11 @@ router.post("/login", async (req, res) => {
 
   // Si no existe el Email
   if (!usuario) {
-    const respuesta = {
+    const response = {
       status: "Error",
       error: "Credenciales Inválidas"
     };
-    return res.status(401).json(respuesta);
+    return res.status(401).json(response);
   }
 
   // Si el Email y Passwd OK
@@ -67,20 +67,20 @@ router.post("/login", async (req, res) => {
       expiresIn: 60 * 60 * 24 * 30
     });
 
-    const respuesta = {
+    const response = {
       status: "Éxito",
       token: token,
       userData: usuario,
     };
-    return res.json(respuesta);
+    return res.json(response);
 
     // Si Passwd es Incorrecta
   } else {
-    const respuesta = {
+    const response = {
       status: "Error",
       error: "Credenciales Inválidas",
     };
-    return res.status(401).json(respuesta);
+    return res.status(401).json(response);
   }
 });
 

@@ -468,7 +468,7 @@
       </card>
     </div>
 
-    <!-- tabla de Plantillas -->
+    <!-- Tabla de Plantillas -->
     <div class="row">
       <card>
         <div slot="header">
@@ -483,16 +483,18 @@
               </div>
             </el-table-column>
 
-            <el-table-column property="name" label="Name"></el-table-column>
+            <el-table-column property="name" label="Name" align="center"></el-table-column>
 
             <el-table-column
             property="description"
               label="Descripción"
+              align="center"
             ></el-table-column>
 
             <el-table-column
             property="widgets.length"
               label="Widgets"
+              align="center"
             ></el-table-column>
 
             <el-table-column header-align="right" align="right" label="Actions" property="2">

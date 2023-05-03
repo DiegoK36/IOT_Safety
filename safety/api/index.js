@@ -31,13 +31,7 @@ module.exports = app;
 
 //Listener
 app.listen(3001, () => { 
-    console.log("Listening...");
-});
-
-//Endpoint Test
-app.get("/testing", (req, res) => {
-    console.log("Hello World");
-    res.send("Helloooooooooo");
+    console.log("Puerto 3001 habilitado para la API");
 });
 
 //Mongo Connection

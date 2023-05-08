@@ -601,7 +601,7 @@ export default {
           name: "",
           dId: "",
         },
-        variableFullName: "Sendor de Movimiento",
+        variableFullName: "Sensor de Movimiento",
         variable: "varname",
         variableType: "input",
         variableSendFreq: "30",
@@ -616,7 +616,7 @@ export default {
         selectedDevice: {
           name: "Despacho C",
           dId: "8888",
-          templateName: "Power Sensor",
+          templateName: "Encendido",
           templateId: "984237562348756ldksjfh",
           saverRule: false,
         },

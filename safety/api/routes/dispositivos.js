@@ -6,6 +6,7 @@ import SaverRule from "../models/emqx_saver.js";
 import Dispositivo from "../models/dispositivo.js";
 import Plantilla from "../models/plantilla.js";
 import AlarmRule from "../models/emqx_alarm.js";
+import EmqxAuthRule from "../models/emqx_auth.js";
 
 /*
 
@@ -100,6 +101,7 @@ router.post("/dispositivos", checkAuth, async (req, res) => {
 
     newDevice.userId = userId;
     newDevice.createdTime = Date.now();
+    newDevice.password = makeid(10);
 
     await createSaverRule(userId, newDevice.dId, true);
 
@@ -354,6 +356,24 @@ async function deleteSaverRule(dId) {
     console.log(error);
     return false;
   }
+}
+
+// Genera un ID Aleatorio
+function makeid(length) {
+
+  try {
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+
 }
 
 module.exports = router;

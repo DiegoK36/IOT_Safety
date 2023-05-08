@@ -5,7 +5,7 @@
 
         <template slot="header">
            
-            <h5 class="card-category"> {{ config.selectedDevice.name }} - {{ config.variableFullName }}</h5>
+            <h4 class="card-title"> {{ config.selectedDevice.name }} - {{ config.variableFullName }}</h4>
 
             <h3 class="card-title">
                 <i class="fa " :class="[config.icon, getIconColorClass()]" aria-hidden="true"

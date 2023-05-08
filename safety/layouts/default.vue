@@ -110,14 +110,13 @@ export default {
         clean: true,
         connectTimeout: 5000,
         reconnectPeriod: 5000,
-        // Certification Information
         clientId:
           "web_" +
           this.$store.state.auth.userData.name +
           "_" +
           Math.floor(Math.random() * 1000000 + 1),
-        username: "adminuser",
-        password: "adminpass",
+        username: null,
+        password: null,
       },
     };
   },
@@ -146,15 +145,14 @@ export default {
           null,
           axiosHeaders
         );
-        console.log(credentials.data);
-        if (credentials.data.status == "success") {
+        if (credentials.data.status == "Éxito") {
           this.options.username = credentials.data.username;
           this.options.password = credentials.data.password;
         }
       } catch (error) {
         console.log(error);
         if (error.response.status == 401) {
-          console.log("NO VALID TOKEN");
+          console.log("Token NO Válido");
           localStorage.clear();
           const auth = {};
           this.$store.commit("setAuth", auth);
@@ -175,14 +173,14 @@ export default {
           axiosHeaders
         );
         console.log(credentials.data);
-        if (credentials.data.status == "success") {
+        if (credentials.data.status == "Éxito") {
           this.client.options.username = credentials.data.username;
           this.client.options.password = credentials.data.password;
         }
       } catch (error) {
         console.log(error);
         if (error.response.status == 401) {
-          console.log("NO VALID TOKEN");
+          console.log("Token NO Válido");
           localStorage.clear();
           const auth = {};
           this.$store.commit("setAuth", auth);
@@ -210,7 +208,6 @@ export default {
       }
       // Conexión MQTT Completada
       this.client.on("connect", () => {
-        console.log(this.client);
         console.log("Conexión Completada!");
         // Subscripción de Sdata
         this.client.subscribe(deviceSubscribeTopic, { qos: 0 }, (err) => {
@@ -277,7 +274,7 @@ export default {
       let docClasses = document.body.classList;
       let isWindows = navigator.platform.startsWith("Win");
       if (isWindows) {
-        // if we are on windows OS we activate the perfectScrollbar function
+        // If we are on windows OS we activate the perfectScrollbar function
         initScrollbar("sidebar");
         initScrollbar("main-panel");
         initScrollbar("sidebar-wrapper");

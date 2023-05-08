@@ -30,8 +30,8 @@
       </div>
     </div>
   
-    <div v-else>
-      Select a Device...
+    <div v-else class="card-title">
+      ADVERTENCIA: Debes seleccionar un Dispositivo para acceder al Dashboard
     </div>
   
   </template>

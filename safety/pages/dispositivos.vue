@@ -79,7 +79,6 @@
             label="#"
             min-width="50"
             align="center"
-            sortable
           >
             <div slot-scope="{ row, $index }">
               {{ $index + 1 }}
@@ -91,7 +90,6 @@
             property="name"
             label="Nombre"
             align="center"
-            sortable
           ></el-table-column>
 
           <el-table-column
@@ -99,7 +97,13 @@
             property="dId"
             label="ID Dispositivo"
             align="center"
-            sortable
+          ></el-table-column>
+
+          <el-table-column
+            header="ID"
+            property="password"
+            label="Contraseña"
+            align="center"
           ></el-table-column>
 
           <el-table-column
@@ -107,7 +111,6 @@
             property="templateId"
             label="ID de Plantilla"
             align="center"
-            sortable
           ></el-table-column>
 
           <el-table-column
@@ -115,7 +118,6 @@
             property="templateName"
             label="Plantilla"
             align="center"
-            sortable
           ></el-table-column>
 
           <el-table-column
@@ -123,7 +125,6 @@
             property="Eliminate"
             label="Eliminar"
             align="center"
-            sortable
           >
             <div slot-scope="{ row, $index }">
               <el-tooltip

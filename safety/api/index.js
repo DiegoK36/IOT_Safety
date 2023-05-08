@@ -1,4 +1,4 @@
-//Requires
+// Requerimientos
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -6,10 +6,10 @@ const mongoose = require('mongoose');
 const colors = require('colors');
 
 
-//Instances
+// Instancias
 const app = express();
 
-//Express Config
+// Configuración de Express
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(
@@ -19,7 +19,7 @@ app.use(
 );
 app.use(cors());
 
-//Express Routes
+// Rutas de Express
 app.use("/api", require("./routes/dispositivos.js"));
 app.use("/api", require("./routes/usuarios.js"));
 app.use("/api", require("./routes/plantillas.js"));
@@ -29,12 +29,12 @@ app.use("/api", require("./routes/alertas.js"));
  
 module.exports = app;
 
-//Listener
+// Escucha de la API
 app.listen(3001, () => { 
     console.log("Puerto 3001 habilitado para la API");
 });
 
-//Mongo Connection
+// Conexión con Mongo
 const mongoUserName = "devuser";
 const mongoPassword = "devpass";
 const mongoHost = "localhost";

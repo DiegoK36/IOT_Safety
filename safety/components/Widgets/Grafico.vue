@@ -224,7 +224,7 @@
                     seconds = 0;
                 }
                 if (seconds < 59) {
-                    return seconds.toFixed() + " secs";
+                    return seconds.toFixed() + " sec";
                 }
                 if (seconds > 59 && seconds <= 3600) {
                     seconds = seconds / 60;
@@ -232,11 +232,11 @@
                 }
                 if (seconds > 3600 && seconds <= 86400) {
                     seconds = seconds / 3600;
-                    return seconds.toFixed() + " hour";
+                    return seconds.toFixed() + " hora";
                 }
                 if (seconds > 86400) {
                     seconds = seconds / 86400;
-                    return seconds.toFixed() + " day";
+                    return seconds.toFixed() + " día";
                 }
             },
         }

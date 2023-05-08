@@ -1,112 +1,112 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { checkAuth } = require('../middlewares/Identificar.js');
+const { checkAuth } = require("../middlewares/Identificar.js");
+import Dispositivo from "../models/dispositivo.js";
+import Plantilla from "../models/plantilla.js";
 
-// Importamos modelos
-import Dispositivo from '../models/dispositivo.js';
-import Plantilla from '../models/plantilla.js';
+/*
 
-//get templates
-router.get('/plantillas', checkAuth, async (req, res) => {
+$$$$$$$$\                 $$\                     $$\            $$\               
+$$  _____|                $$ |                    \__|           $$ |              
+$$ |      $$$$$$$\   $$$$$$$ | $$$$$$\   $$$$$$\  $$\ $$$$$$$\ $$$$$$\    $$$$$$$\ 
+$$$$$\    $$  __$$\ $$  __$$ |$$  __$$\ $$  __$$\ $$ |$$  __$$\\_$$  _|  $$  _____|
+$$  __|   $$ |  $$ |$$ /  $$ |$$ /  $$ |$$ /  $$ |$$ |$$ |  $$ | $$ |    \$$$$$$\  
+$$ |      $$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |$$ |$$ |  $$ | $$ |$$\  \____$$\ 
+$$$$$$$$\ $$ |  $$ |\$$$$$$$ |$$$$$$$  |\$$$$$$  |$$ |$$ |  $$ | \$$$$  |$$$$$$$  |
+\________|\__|  \__| \_______|$$  ____/  \______/ \__|\__|  \__|  \____/ \_______/ 
+                              $$ |                                                 
+                              $$ |                                                 
+                              \__|                                                 
 
-    try {
+[Endpoints del Backend] -> Permiten realizar distintas acciones sobre las Plantillas
 
-        const userId = req.userData._id;
+Developer: DK36
+*/
 
-        const plantillas = await Plantilla.find({userId: userId});
+// Obtener las Plantillas
+router.get("/plantillas", checkAuth, async (req, res) => {
+  try {
+    const userId = req.userData._id;
 
-        const response = {
-            status: "Éxito",
-            data: plantillas
-        }
+    const plantillas = await Plantilla.find({ userId: userId });
 
-        return res.json(response);
+    const response = {
+      status: "Éxito",
+      data: plantillas,
+    };
 
-    } catch (error) {
+    return res.json(response);
+  } catch (error) {
+    const response = {
+      status: "Error",
+      error: error,
+    };
 
-        const response = {
-            status: "Error",
-            error: error
-        }
-
-        return res.status(500).json(response);
-
-    }
-
+    return res.status(500).json(response);
+  }
 });
 
-//create template
-router.post('/plantillas', checkAuth, async (req, res) => {
+// Crear una Plantilla
+router.post("/plantillas", checkAuth, async (req, res) => {
+  try {
+    const userId = req.userData._id;
 
-    try {
+    var newTemplate = req.body.template;
 
-        const userId = req.userData._id;
+    newTemplate.userId = userId;
+    newTemplate.createdTime = Date.now();
 
-        var newTemplate = req.body.template;
+    const r = await Plantilla.create(newTemplate);
 
-        newTemplate.userId = userId;
-        newTemplate.createdTime = Date.now();
+    const response = {
+      status: "Éxito",
+    };
 
-        const r = await Plantilla.create(newTemplate);
+    return res.json(response);
+  } catch (error) {
+    const response = {
+      status: "Error",
+      error: error,
+    };
 
-        const response = {
-            status: "Éxito",
-        }
-
-        return res.json(response)
-
-    } catch (error) {
-
-        const response = {
-            status: "Error",
-            error: error
-        }
-
-        return res.status(500).json(response);
-
-    }
-
+    return res.status(500).json(response);
+  }
 });
 
-//delete template
-router.delete('/plantillas', checkAuth, async (req, res) => {
+// Borrar una Plantilla
+router.delete("/plantillas", checkAuth, async (req, res) => {
+  try {
+    const userId = req.userData._id;
+    const templateId = req.query.templateId;
 
-    try {
+    const dispositivos = await Dispositivo.find({
+      userId: userId,
+      templateId: templateId,
+    });
 
-        const userId = req.userData._id;
-        const templateId = req.query.templateId;
+    if (dispositivos.length > 0) {
+      const response = {
+        status: "Fallo",
+        error: "Plantilla en uso",
+      };
 
-        const dispositivos = await Dispositivo.find({userId: userId, templateId: templateId });
-
-        if (dispositivos.length > 0){
-
-            const response = {
-                status: "Fallo",
-                error: "Plantilla en uso"
-            }
-    
-            return res.json(response);
-        }
-
-        const r = await Plantilla.deleteOne({userId: userId, _id: templateId});
-
-        const response = {
-            status: "Éxito",
-        }
-
-        return res.json(response)
-
-    } catch (error) {
-
-        const response = {
-            status: "Error",
-            error: error
-        }
-
-        return res.status(500).json(response);
-
+      return res.json(response);
     }
 
+    const r = await Plantilla.deleteOne({ userId: userId, _id: templateId });
+
+    const response = {
+      status: "Éxito",
+    };
+
+    return res.json(response);
+  } catch (error) {
+    const response = {
+      status: "Error",
+      error: error,
+    };
+    return res.status(500).json(response);
+  }
 });
 
 module.exports = router;

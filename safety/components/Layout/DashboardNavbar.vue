@@ -50,7 +50,7 @@
             v-if="$store.state.notifications.length > 0"
             class="notification d-none d-lg-block d-xl-block"
           ></div>
-          <i class="tim-icons icon-sound-wave"></i>
+          <i class="tim-icons icon-bell-55"></i>
           <p class="d-lg-none">New Notifications</p>
         </template>
 

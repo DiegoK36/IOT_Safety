@@ -27,7 +27,7 @@
         <sidebar-item
           :link="{
             name: 'Alertas',
-            icon: 'tim-icons icon-alert-circle-exc',
+            icon: 'tim-icons icon-time-alarm',
             path: '/alertas',
           }"
         >
@@ -87,7 +87,6 @@ import DashboardNavbar from "@/components/Layout/DashboardNavbar.vue";
 import ContentFooter from "@/components/Layout/ContentFooter.vue";
 import DashboardContent from "@/components/Layout/Content.vue";
 import { SlideYDownTransition, ZoomCenterTransition } from "vue2-transitions";
-import Identificado from "~/middleware/Identificado";
 
 export default {
   middleware: "Identificado",

@@ -74,10 +74,8 @@
 
         <el-table :data="$store.state.devices">
           <el-table-column
-            header="#"
-            property="$"
+            prop="$"
             label="#"
-            min-width="50"
             align="center"
           >
             <div slot-scope="{ row, $index }">
@@ -86,43 +84,37 @@
           </el-table-column>
 
           <el-table-column
-            header="name"
-            property="name"
+            prop="name"
             label="Nombre"
             align="center"
           ></el-table-column>
 
           <el-table-column
-            header="ID"
-            property="dId"
+            prop="dId"
             label="ID Dispositivo"
             align="center"
           ></el-table-column>
 
           <el-table-column
-            header="ID"
-            property="password"
+            prop="password"
             label="Contraseña"
             align="center"
           ></el-table-column>
 
           <el-table-column
-            header="ID2"
-            property="templateId"
+            prop="templateId"
             label="ID de Plantilla"
             align="center"
           ></el-table-column>
 
           <el-table-column
-            header="name2"
-            property="templateName"
+            prop="templateName"
             label="Plantilla"
             align="center"
           ></el-table-column>
 
           <el-table-column
-            header="Delete"
-            property="Eliminate"
+            prop="Eliminate"
             label="Eliminar"
             align="center"
           >
@@ -173,9 +165,6 @@
         </el-table>
       </card>
     </div>
-
-    <Json :value="$store.state.devices"></Json>
-    <Json :value="templates"></Json>
   </div>
 </template>
 

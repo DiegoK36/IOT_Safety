@@ -483,7 +483,7 @@
               </div>
             </el-table-column>
 
-            <el-table-column property="name" label="Name" align="center"></el-table-column>
+            <el-table-column property="name" label="Nombre" align="center"></el-table-column>
 
             <el-table-column
             property="description"
@@ -497,7 +497,7 @@
               align="center"
             ></el-table-column>
 
-            <el-table-column header-align="right" align="right" label="Actions" property="2">
+            <el-table-column header-align="right" align="right" label="Borrar" property="2">
               <div
                 slot-scope="{ row, $index }"
                 class="text-right table-actions"
@@ -584,7 +584,7 @@ export default {
           name: "",
           dId: "",
         },
-        variableFullName: "Activar Motor",
+        variableFullName: "- Switch",
         variable: "varname",
         variableType: "output",
         class: "danger",
@@ -599,7 +599,7 @@ export default {
           name: "",
           dId: "",
         },
-        variableFullName: "Sensor de Movimiento",
+        variableFullName: "- Indicador",
         variable: "varname",
         variableType: "input",
         variableSendFreq: "30",
@@ -618,7 +618,7 @@ export default {
           templateId: "984237562348756ldksjfh",
           saverRule: false,
         },
-        variableFullName: "Encender Luz",
+        variableFullName: "- Luz",
         variable: "var1",
         variableType: "output",
         icon: "fa-sun",

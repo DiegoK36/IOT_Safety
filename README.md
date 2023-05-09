@@ -1,8 +1,8 @@
-# Proyecto Safety: Sensores y Actuadores IoT con Dashboard y Alertas
+# Proyecto Safety: Módulo 4 IOT UEM
 
 ## Descripción
 
-Safety es un proyecto de Internet de las Cosas (IoT) que integra sensores y actuadores en una plataforma fácil de usar. El proyecto incluye un dashboard personalizable con diferentes widgets para representar los valores de los sensores y actuadores, así como la configuración de alertas en tiempo real y la integración de dispositivos ESP32. Este proyecto ha sido desarrollado por el team leader DiegoK36 y el resto del equipo.
+Safety es un proyecto de Internet de las Cosas (IoT) que integra sensores y actuadores en una plataforma fácil de usar. El proyecto incluye un dashboard personalizable con diferentes widgets para representar los valores de los sensores y actuadores, así como la configuración de alertas en tiempo real y la integración de dispositivos ESP32. Este proyecto ha sido desarrollado por el team leader DiegoK36 y el resto de integrantes del equipo.
 
 ![Safety-Dashboard](./images/safety-dashboard.png)
 
@@ -16,8 +16,8 @@ Safety es un proyecto de Internet de las Cosas (IoT) que integra sensores y actu
 
 ## Requisitos
 
-- Node.js v14.x.x o superior.
-- NPM v6.x.x o superior.
+- Node.js v14.15.1 o superior.
+- NPM v6.14.8 o superior.
 - Un dispositivo ESP32 (opcional).
 
 ## Instalación
@@ -26,8 +26,26 @@ Safety es un proyecto de Internet de las Cosas (IoT) que integra sensores y actu
 
 ```bash
 git clone https://github.com/DiegoK36/safety.git
+```
 
 2. Entre al directorio del proyecto:
 
 ```bash
-git clone https://github.com/DiegoK36/safety.git
+cd safety
+```
+
+3. Instale las dependencias de proyecto:
+
+```bash
+npm install
+```
+
+4. Configure las variables de entorno en el archivo .env. Asegúrese de editar las variables según su configuración de hardware y red.
+
+5. Inicie el servidor de desarrollo:
+
+```bash
+npm run dev
+```
+
+6. Abra su navegador web y visite http://localhost:3000 para acceder al dashboard.

@@ -49,3 +49,21 @@ npm run dev
 ```
 
 6. Abra su navegador web y visite http://localhost:3000 para acceder al dashboard.
+
+## Uso de Aplicación
+
+1. Configure sus dispositivos ESP32 a través del proyecto PlatformIO.
+
+2. Utilice el dashboard para visualizar y monitorear los valores de los sensores y actuadores en tiempo real.
+
+3. Configure las alertas en tiempo real a través de la interfaz de configuración de alertas en el dashboard.
+
+4. Agrege nuevos dispositivos ESP32 en la aplicación y configurelos a su gusto en PlatformIO.
+
+## Contribuciones
+
+Si desea contribuir al proyecto, por favor, envíe un Pull Request con sus cambios y mejoras. Asegúrese de seguir las convenciones de código y de documentar adecuadamente sus contribuciones.
+
+## Contacto
+
+Si tiene alguna pregunta o necesita asistencia, no dude en ponerse en contacto con el team leader DiegoK36 a través de diegors.mail@gmail.com o cualquier otro miembro del equipo del proyecto Safety.

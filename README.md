@@ -4,7 +4,7 @@
 
 Safety es un proyecto de Internet de las Cosas (IoT) que integra sensores y actuadores en una plataforma fácil de usar. El proyecto incluye un dashboard personalizable con diferentes widgets para representar los valores de los sensores y actuadores, así como la configuración de alertas en tiempo real y la integración de dispositivos ESP32. Este proyecto ha sido desarrollado por el team leader DiegoK36 y el resto de integrantes del equipo.
 
-![Safety-Dashboard](./safety/static/dashboard.png)
+![Safety-Dashboard](./safety/static/Dashboard.png)
 
 ## Características
 

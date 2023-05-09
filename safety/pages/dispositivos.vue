@@ -2,7 +2,7 @@
   <div>
     <!-- Añadir un Dispositivo -->
     <div class="row">
-      <card>
+      <card card-body-classes="table-full-width">
         <div slot="header">
           <h4 class="card-title">Añadir Nuevo Dispositivo</h4>
         </div>
@@ -67,16 +67,13 @@
 
     <!-- Tabla de Dispositivos -->
     <div class="row">
-      <card>
-        <div slot="header">
-          <h4 class="card-title">Dispositivos</h4>
-        </div>
-
+      <card card-body-classes="table-full-width">
+        <h4 slot="header" class="card-title">Dispositivos</h4>
         <el-table :data="$store.state.devices">
           <el-table-column
-            prop="$"
+            property="$"
             label="#"
-            align="center"
+            min-width="150"
           >
             <div slot-scope="{ row, $index }">
               {{ $index + 1 }}
@@ -84,39 +81,39 @@
           </el-table-column>
 
           <el-table-column
-            prop="name"
+            property="name"
             label="Nombre"
-            align="center"
+            min-width="150"
           ></el-table-column>
 
           <el-table-column
-            prop="dId"
+            property="dId"
             label="ID Dispositivo"
-            align="center"
+            min-width="150"
           ></el-table-column>
 
           <el-table-column
-            prop="password"
+            property="passwd"
             label="Contraseña"
-            align="center"
+            min-width="150"
           ></el-table-column>
 
           <el-table-column
-            prop="templateId"
+            property="templateId"
             label="ID de Plantilla"
-            align="center"
+            min-width="150"
           ></el-table-column>
 
           <el-table-column
-            prop="templateName"
+            property="templateName"
             label="Plantilla"
-            align="center"
+            min-width="150"
           ></el-table-column>
 
           <el-table-column
-            prop="Eliminate"
+            property="Eliminate"
             label="Eliminar"
-            align="center"
+            min-width="150"
           >
             <div slot-scope="{ row, $index }">
               <el-tooltip

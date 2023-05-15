@@ -497,7 +497,7 @@
               align="center"
             ></el-table-column>
 
-            <el-table-column header-align="right" align="right" label="Borrar" property="2">
+            <el-table-column header-align="center" align="center" label="Borrar" property="2">
               <div
                 slot-scope="{ row, $index }"
                 class="text-right table-actions"

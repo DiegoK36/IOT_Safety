@@ -108,25 +108,28 @@
               <el-table-column
                 prop="variableFullName"
                 label="Nombre"
+                align="center"
               ></el-table-column>
   
-              <el-table-column prop="variable" label="Variable"></el-table-column>
+              <el-table-column prop="variable" label="Variable" align="center"></el-table-column>
   
               <el-table-column
                 prop="condition"
                 label="Condición"
+                align="center"
               ></el-table-column>
   
-              <el-table-column prop="value" label="Valor"></el-table-column>
+              <el-table-column prop="value" label="Valor" align="center"></el-table-column>
   
               <el-table-column
                 prop="triggerTime"
                 label="Tiempo de Reactivación"
+                align="center"
               ></el-table-column>
   
-              <el-table-column prop="counter" label="Veces Excedido"></el-table-column>
+              <el-table-column prop="counter" label="Veces Excedido" align="center"></el-table-column>
 
-              <el-table-column min-width="110" header-align="right" align="right" label="Acciones">
+              <el-table-column min-width="110" header-align="center" align="center" label="Acciones">
                 <div
                   slot-scope="{ row, $index }"
                   class="table-actions"
@@ -154,7 +157,7 @@
                 </div>
               </el-table-column>
   
-              <el-table-column header-align="right" align="right" label="Acciones">
+              <el-table-column header-align="center" align="center" label="Eliminar">
                 <div
                   slot-scope="{ row, $index }"
                   class="table-actions"

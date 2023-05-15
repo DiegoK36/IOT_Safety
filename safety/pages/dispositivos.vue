@@ -74,6 +74,7 @@
             property="$"
             label="#"
             min-width="150"
+            align="center"
           >
             <div slot-scope="{ row, $index }">
               {{ $index + 1 }}
@@ -84,36 +85,42 @@
             property="name"
             label="Nombre"
             min-width="150"
+            align="center"
           ></el-table-column>
 
           <el-table-column
             property="dId"
             label="ID Dispositivo"
             min-width="150"
+            align="center"
           ></el-table-column>
 
           <el-table-column
             property="passwd"
             label="Contraseña"
             min-width="150"
+            align="center"
           ></el-table-column>
 
           <el-table-column
             property="templateId"
             label="ID de Plantilla"
             min-width="150"
+            align="center"
           ></el-table-column>
 
           <el-table-column
             property="templateName"
             label="Plantilla"
             min-width="150"
+            align="center"
           ></el-table-column>
 
           <el-table-column
             property="Eliminate"
             label="Eliminar"
             min-width="150"
+            align="center"
           >
             <div slot-scope="{ row, $index }">
               <el-tooltip

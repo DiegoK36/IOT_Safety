@@ -44,9 +44,6 @@
       </template>
     </side-bar>
 
-    <!--Share plugin (for demo purposes). You can remove it if don't plan on using it-->
-    <sidebar-share :background-color.sync="sidebarBackground"> </sidebar-share>
-
     <div class="main-panel" :data="sidebarBackground">
       <dashboard-navbar></dashboard-navbar>
       <router-view name="header"></router-view>
@@ -103,8 +100,8 @@ export default {
       sidebarBackground: "blue",
       client: null,
       options: {
-        host: process.env.mqtt_host,
-        port: process.env.mqtt_port,
+        host: process.env.MQTT_HOST,
+        port: process.env.MQTT_PORT,
         endpoint: "/mqtt",
         clean: true,
         connectTimeout: 5000,
@@ -194,7 +191,7 @@ export default {
       const notifSubscribeTopic =
         this.$store.state.auth.userData._id + "/+/+/notif";
       const connectUrl =
-        process.env.mqtt_prefix +
+        process.env.MQTT_SSL_PREFIX +
         this.options.host +
         ":" +
         this.options.port +

@@ -90,13 +90,6 @@
           <p @click="logOut()" class="d-lg-none">Salir</p>
         </template>
         <li class="nav-link">
-          <a href="#" class="nav-item dropdown-item">Perfil</a>
-        </li>
-        <li class="nav-link">
-          <a href="#" class="nav-item dropdown-item">Ajustes</a>
-        </li>
-        <div class="dropdown-divider"></div>
-        <li class="nav-link">
           <a href="#" @click="logOut()" class="nav-item dropdown-item">Salir</a>
         </li>
       </base-dropdown>

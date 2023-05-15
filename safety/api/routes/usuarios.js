@@ -133,10 +133,7 @@ router.post("/getmqttcredentials", checkAuth, async (req, res) => {
 });
 
 // Obtenemos las Credenciales MQTT en caso de Reconexión
-router.post(
-  "/getmqttcredentialsforreconnection",
-  checkAuth,
-  async (req, res) => {
+router.post("/getmqttcredentialsforreconnection", checkAuth, async (req, res) => {
     try {
       const userId = req.userData._id;
       const credentials = await getWebUserMqttCredentialsForReconnection(

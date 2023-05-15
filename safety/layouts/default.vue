@@ -111,8 +111,8 @@ export default {
           this.$store.state.auth.userData.name +
           "_" +
           Math.floor(Math.random() * 1000000 + 1),
-        username: null,
-        password: null,
+        username: "",
+        password: "",
       },
     };
   },
@@ -128,12 +128,15 @@ export default {
       this.startMqttClient();
     }, 2000);
   },
+  beforeDestroy() {
+    this.$nuxt.$off("mqtt-sender");
+  },
   methods: {
     async getMqttCredentials() {
       try {
         const axiosHeaders = {
           headers: {
-            token: this.$store.state.auth.token,
+            token: this.$store.state.auth.token
           },
         };
         const credentials = await this.$axios.post(
@@ -141,6 +144,8 @@ export default {
           null,
           axiosHeaders
         );
+        console.log(credentials.data);
+
         if (credentials.data.status == "Éxito") {
           this.options.username = credentials.data.username;
           this.options.password = credentials.data.password;

@@ -72,7 +72,7 @@ export default {
   env:{
     MQTT_SSL_PREFIX: process.env.MQTT_SSL_PREFIX,
     MQTT_HOST: process.env.MQTT_HOST,
-    MQTT_PORT: process.env.MQTT_PORT
+    MQTT_PORT: process.env.MQTT_PORT,
   },
 
   serverMiddleware: {

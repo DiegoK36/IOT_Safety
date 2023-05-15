@@ -28,7 +28,7 @@ Developer: DK36
 const auth = {
     auth: {
       username: "admin",
-      password: "secret"
+      password: process.env.EMQX_APP_SECRET
     }
 };
   

@@ -103,8 +103,8 @@ export default {
       sidebarBackground: "blue",
       client: null,
       options: {
-        host: "localhost",
-        port: 8083,
+        host: process.env.mqtt_host,
+        port: process.env.mqtt_port,
         endpoint: "/mqtt",
         clean: true,
         connectTimeout: 5000,
@@ -171,7 +171,7 @@ export default {
           null,
           axiosHeaders
         );
-        console.log(credentials.data);
+
         if (credentials.data.status == "Éxito") {
           this.client.options.username = credentials.data.username;
           this.client.options.password = credentials.data.password;

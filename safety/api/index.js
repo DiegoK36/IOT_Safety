@@ -5,6 +5,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const colors = require('colors');
 
+// Variables de Entorno
+require('dotenv').config();
 
 // Instancias
 const app = express();
@@ -30,16 +32,16 @@ app.use("/api", require("./routes/alertas.js"));
 module.exports = app;
 
 // Escucha de la API
-app.listen(3001, () => { 
-    console.log("Puerto 3001 habilitado para la API");
+app.listen(process.env.API_PORT, () => { 
+    console.log("Puerto " + process.env.API_PORT + " habilitado para la API");
 });
 
 // Conexión con Mongo
-const mongoUserName = "devuser";
-const mongoPassword = "devpass";
-const mongoHost = "localhost";
-const mongoPort = "27017";
-const mongoDatabase = "safety";
+const mongoUserName = process.env.MONGO_USER;
+const mongoPassword = process.env.MONGO_PASS;
+const mongoHost = process.env.MONGO_HOST;
+const mongoPort = process.env.MONGO_PORT;
+const mongoDatabase = process.env.MONGO_DATABASE;
 
 var uri =
   "mongodb://" +

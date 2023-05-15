@@ -66,7 +66,13 @@ export default {
   ],
 
   axios: {
-    baseURL: "http://127.0.0.1:3001/api"
+    baseURL: process.env.AXIOS_BASE_URL
+  },
+
+  env:{
+    mqtt_prefix: process.env.MQTT_SSL_PREFIX,
+    mqtt_host: process.env.MQTT_HOST,
+    mqtt_port: process.env.MQTT_PORT
   },
 
   serverMiddleware: {

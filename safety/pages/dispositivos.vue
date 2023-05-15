@@ -124,9 +124,35 @@
           >
             <div slot-scope="{ row, $index }">
               <el-tooltip
+                content="Eliminar"
+                effect="light"
+                :open-delay="300"
+                placement="top"
+              >
+                <base-button
+                  type="danger"
+                  icon
+                  size="sm"
+                  class="btn-link"
+                  @click="deleteDevice(row)"
+                >
+                  <i class="tim-icons icon-simple-remove"></i>
+                </base-button>
+              </el-tooltip>
+            </div>
+          </el-table-column>
+          <el-table-column
+            property="SaveDDBB"
+            label="Guardar DDBB"
+            min-width="150"
+            align="center"
+          >
+            <div slot-scope="{ row, $index }">
+              <el-tooltip
                 content="Indicador DB"
                 effect="light"
                 style="margin-right: 6px"
+                align="center"
               >
                 <i
                   class="fas fa-database"
@@ -146,23 +172,6 @@
                   off-text="Off"
                 >
                 </base-switch>
-              </el-tooltip>
-
-              <el-tooltip
-                content="Eliminar"
-                effect="light"
-                :open-delay="300"
-                placement="top"
-              >
-                <base-button
-                  type="danger"
-                  icon
-                  size="sm"
-                  class="btn-link"
-                  @click="deleteDevice(row)"
-                >
-                  <i class="tim-icons icon-simple-remove"></i>
-                </base-button>
               </el-tooltip>
             </div>
           </el-table-column>
@@ -205,40 +214,37 @@ export default {
     this.getTemplates();
   },
   methods: {
-
-    updateRule(rule){
-
+    updateRule(rule) {
       var ruleCopy = JSON.parse(JSON.stringify(rule));
       ruleCopy.status = !ruleCopy.status;
-      
-      const toSend = { 
-        rule: ruleCopy 
+
+      const toSend = {
+        rule: ruleCopy,
       };
 
       const axiosHeaders = {
         headers: {
-          token: this.$store.state.auth.token
-        }
+          token: this.$store.state.auth.token,
+        },
       };
 
       this.$axios
         .put("/regla-guardado", toSend, axiosHeaders)
-        .then(res => {
+        .then((res) => {
           if (res.data.status == "Éxito") {
             this.$store.dispatch("getDevices");
           }
           return;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
           this.$notify({
             type: "danger",
             icon: "tim-icons icon-alert-circle-exc",
-            message: "Error al actualizar la Regla de Guardado"
+            message: "Error al actualizar la Regla de Guardado",
           });
           return;
         });
-
     },
 
     // Crear un nuevo Dispositivo

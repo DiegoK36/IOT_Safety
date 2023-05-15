@@ -53,11 +53,20 @@
   }
 }
 
+.el-table .el-table__body td {
+  border-bottom: yes !important;
+  border-bottom-color: #fffefe1c !important;
+  border-top: yes !important;
+  border-top-color: #fffefe1c !important;
+}
+
+div.el-table table thead th.el-table__cell {
+  background-color: #ffffff00;
+}
+
 div.el-table,
 .el-table table tr,
 .el-table table thead th {
   background-color: transparent;
 }
-.el-table table thead th.el-table__cell {
-  background-color: transparent;
-}
+

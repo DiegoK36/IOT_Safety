@@ -500,7 +500,7 @@
             <el-table-column header-align="center" align="center" label="Borrar" property="2">
               <div
                 slot-scope="{ row, $index }"
-                class="text-right table-actions"
+                class="text-center table-actions"
               >
                 <el-tooltip
                   content="Delete"

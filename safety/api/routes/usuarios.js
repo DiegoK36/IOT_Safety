@@ -81,7 +81,7 @@ router.post("/login", async (req, res) => {
     usuario.set("passwd", undefined, { strict: false });
 
     const token = jwt.sign({ userData: usuario }, "securePasswd", {
-      expiresIn: 60 * 60 * 24 * 30,
+      expiresIn: 60 * 60 * 2
     });
 
     const response = {

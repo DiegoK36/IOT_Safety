@@ -137,9 +137,34 @@ router.delete("/dispositivos", checkAuth, async (req, res) => {
     const userId = req.userData._id;
     const dId = req.query.dId;
 
+    // Borrado de Reglas y Credenciales de Dispositivo
     await deleteSaverRule(dId);
+    await deleteAllAlarmRules(userId, dId);
+    await deleteMqttDeviceCredentials(dId);
   
     const result = await Dispositivo.deleteOne({userId: userId, dId: dId});
+
+    // Selector de Dispositivos
+    const devices = await Dispositivo.find({ userId: userId });
+
+    if (devices.length >= 1) {
+      // Si hay alguno seleccionado
+      var found = false;
+      devices.forEach(devices => {
+        if (devices.selected == true) {
+          found = true;
+        }
+      });
+
+      // Si no esta seleccionado
+      if (!found) {
+        await Dispositivo.updateMany({ userId: userId }, { selected: false });
+        await Dispositivo.updateOne(
+          { userId: userId, dId: devices[0].dId },
+          { selected: true }
+        );
+      }
+    }
   
     const respuesta = {
       status: "Éxito",
@@ -353,6 +378,46 @@ async function deleteSaverRule(dId) {
     return true;
   } catch (error) {
     console.log("Error al eliminar la regla de guardado");
+    console.log(error);
+    return false;
+  }
+}
+
+// Borramos todas las Notificaciones
+async function deleteAllAlarmRules(userId, dId) {
+  try {
+    const rules = await AlarmRule.find({ userId: userId, dId: dId });
+
+    if (rules.length > 0) {
+      asyncForEach(rules, async rule => {
+        const url = "http://"+process.env.EMQX_API_HOST+":8085/api/v4/rules/" + rule.emqxRuleId;
+        const res = await axios.delete(url, auth);
+      });
+
+      await AlarmRule.deleteMany({ userId: userId, dId: dId });
+    }
+
+    return true;
+  } catch (error) {
+    console.log(error);
+    return "error";
+  }
+}
+
+// Selección de Notificaciones
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array);
+  }
+}
+
+// Borramos las Credenciales MQTT
+async function deleteMqttDeviceCredentials(dId) {
+  try {
+    await EmqxAuthRule.deleteMany({ dId: dId, type: "device" });
+
+    return true;
+  } catch (error) {
     console.log(error);
     return false;
   }

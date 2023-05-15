@@ -96,7 +96,7 @@
           ></el-table-column>
 
           <el-table-column
-            property="passwd"
+            property="password"
             label="Contraseña"
             min-width="150"
             align="center"

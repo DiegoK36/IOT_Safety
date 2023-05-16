@@ -3,6 +3,8 @@ const router = express.Router();
 const axios = require("axios");
 const colors = require("colors");
 
+import EmqxAuthRule from "../models/emqx_auth.js";
+
 const auth = {
   auth: {
     username: "admin",
@@ -120,6 +122,40 @@ async function createResources() {
         console.log("Error al crear los Recursos");
         console.log(error);
     }
+}
+
+// Comprobamos si existe un Administrador (Si no, creamos uno)
+global.check_mqtt_superuser = async function checkMqttSuperUser(){
+
+  try {
+    const superusers = await EmqxAuthRule.find({type:"superuser"});
+
+    if (superusers.length > 0 ) {
+  
+      return;
+  
+    }else if ( superusers.length == 0 ) {
+  
+      await EmqxAuthRule.create(
+        {
+          publish: ["#"],
+          subscribe: ["#"],
+          userId: "emqx_superusuario",
+          username: process.env.EMQX_SUPERUSER_USER,
+          password: process.env.EMQX_SUPERUSER_PASSWORD,
+          type: "superuser",
+          time: Date.now(),
+          updatedTime: Date.now()
+        }
+      );
+  
+      console.log("Administrador MQTX Creado")
+  
+    }
+  } catch (error) {
+    console.log("Error al crear Administrador MQTX");
+    console.log(error);
+  }
 }
 
 setTimeout(() => {

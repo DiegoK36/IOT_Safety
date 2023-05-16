@@ -144,8 +144,7 @@ export default {
           null,
           axiosHeaders
         );
-        console.log(credentials.data);
-
+        
         if (credentials.data.status == "Éxito") {
           this.options.username = credentials.data.username;
           this.options.password = credentials.data.password;

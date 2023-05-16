@@ -73,9 +73,9 @@ services:
       EMQX_AUTH__MONGO__AUTH_SOURCE: admin
 
       EMQX_AUTH__MONGO__DATABASE: "safety"
-      EMQX_AUTH__MONGO__AUTH_QUERY__COLLECTION: "emqxauth"
+      EMQX_AUTH__MONGO__AUTH_QUERY__COLLECTION: "emqxauthrules"
 
-      EMQX_AUTH__MONGO__SUPER_QUERY__COLLECTION: "emqxauth"
+      EMQX_AUTH__MONGO__SUPER_QUERY__COLLECTION: "emqxauthrules"
       EMQX_AUTH__MONGO__SUPER_QUERY__SUPER_FIELD: "is_superuser"
       EMQX_AUTH__MONGO__SUPER_QUERY__SELECTOR: "username=%u"
       EMQX_AUTH__MONGO__SUPER_QUERY: "off"
@@ -86,7 +86,7 @@ services:
 
       # Activación de la Lista de Control de Acceso (ACL)
       EMQX_AUTH__MONGO__ACL_QUERY: "on"
-      EMQX_AUTH__MONGO__ACL_QUERY__COLLECTION: "emqxauth"
+      EMQX_AUTH__MONGO__ACL_QUERY__COLLECTION: "emqxauthrules"
       EMQX_AUTH__MONGO__ACL_QUERY__SELECTOR: "username=%u"
 
       # Activación de Plugins principales

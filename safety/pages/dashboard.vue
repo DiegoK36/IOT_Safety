@@ -35,20 +35,20 @@
     </div>
   
   </template>
-  <script>
+<script>
 import Indicador from "../components/Widgets/Indicador.vue";
 import Boton from "../components/Widgets/Boton.vue";
 import Grafico from "../components/Widgets/Grafico.vue";
 import SwitchSafe from "../components/Widgets/SwitchSafe.vue";
 
 export default {
+  middleware: "Identificado",
+  name: 'Dashboard',
   components: {     
     Indicador,
     Boton,
     Grafico,
     SwitchSafe },
-    middleware: "Identificado",
-    name: 'Dashboard',
   data() {
     return {
     } 

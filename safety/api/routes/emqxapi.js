@@ -18,6 +18,7 @@ global.alarmResource = null;
 // Listamos los Recursos de EMQX
 async function listResources() {
   try {
+
     const url =
       "http://localhost:8085/api/v4/resources/";
 
@@ -142,7 +143,7 @@ global.check_mqtt_superuser = async function checkMqttSuperUser(){
           subscribe: ["#"],
           userId: "emqx_superusuario",
           username: process.env.EMQX_SUPERUSER_USER,
-          password: process.env.EMQX_SUPERUSER_PASSWORD,
+          password: process.env.EMQX_SUPERUSER_PASS,
           type: "superuser",
           time: Date.now(),
           updatedTime: Date.now()

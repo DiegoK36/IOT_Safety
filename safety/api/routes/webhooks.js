@@ -5,8 +5,10 @@ const colors = require("colors");
 var mqtt = require("mqtt");
 import Dato from "../models/dato.js";
 import Dispositivo from "../models/dispositivo.js";
+import Plantilla from "../models/plantilla.js";
 import EmqxAuthRule from "../models/emqx_auth.js";
 import Notificacion from "../models/notificacion.js";
+import AlarmRule from "../models/emqx_alarm.js";
 const { checkAuth } = require("../middlewares/Identificar.js");
 var client;
 
@@ -92,13 +94,16 @@ router.post("/getdevicecredentials", async (req, res) => {
 router.post("/saver-webhook", async (req, res) => {
       
       try {
+        console.log(req.headers);
+        console.log(req.body);
       if (req.headers.token != process.env.EMQX_API_TOKEN) {
         res.status(404).json();
         return;
       }
-  
+      
+
       const data = req.body;
-  
+
       const splittedTopic = data.topic.split("/");
       const dId = splittedTopic[1];
       const variable = splittedTopic[2];
@@ -126,7 +131,7 @@ router.post("/saver-webhook", async (req, res) => {
 // Guardar Alarmas con WebHook
 router.post("/alarm-webhook", async (req, res) => {
   try {
-    if (req.headers.token != process.env.EMQX_API_TOKEN) {
+    if (req.headers.token != "202020") {
       res.status(404).json();
       return;
     }
@@ -177,7 +182,7 @@ router.get("/notificaciones", checkAuth, async (req, res) => {
 
     res.json(response);
   } catch (error) {
-    console.log("Erro al obtener las Alertas");
+    console.log("Error al obtener las Alertas");
     console.log(error);
 
     const response = {
@@ -196,7 +201,7 @@ router.put("/notificaciones", checkAuth, async (req, res) => {
 
     const notificationId = req.body.notifId;
 
-    await Notification.updateOne(
+    await Notificacion.updateOne(
       { userId: userId, _id: notificationId },
       { readed: true }
     );
@@ -357,7 +362,7 @@ function saveNotifToMongo(incomingAlarm) {
     var newNotif = incomingAlarm;
     newNotif.time = Date.now();
     newNotif.readed = false;
-    Notification.create(newNotif);
+    Notificacion.create(newNotif);
   } catch (error) {
     console.log(error);
     return false;

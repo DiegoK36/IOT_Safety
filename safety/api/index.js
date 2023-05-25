@@ -1,9 +1,8 @@
 // Requerimientos
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const colors = require('colors');
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+import mongoose from 'mongoose';
 
 // Variables de Entorno
 require('dotenv').config();
@@ -24,6 +23,7 @@ app.use(cors());
 // Rutas de Express
 app.use("/api", require("./routes/dispositivos.js"));
 app.use("/api", require("./routes/usuarios.js"));
+app.use("/api", require("./routes/dataprovider.js"));
 app.use("/api", require("./routes/plantillas.js"));
 app.use("/api", require("./routes/webhooks.js"));
 app.use("/api", require("./routes/emqxapi.js"));
@@ -72,7 +72,7 @@ mongoose.connect(uri, options).then(
       console.log("  ✔ Mongo Conectado Correctamente!  ".green);
       console.log("------------------------------------".green);
       console.log("\n");
-      //global.check_mqtt_superuser();
+      global.check_mqtt_superuser();
   
     },
     err => {

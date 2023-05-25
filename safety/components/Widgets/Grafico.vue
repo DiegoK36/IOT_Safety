@@ -6,7 +6,7 @@
         <template slot="header">
 
 
-            <h5 class="card-category pull-right">{{getTimeAgo((nowTime - time) / 1000)}} </h5>
+            <h5 class="card-category pull-right">{{getTimeAgo((nowTime - time) / 1000)}}</h5>
 
           
             <h5 class="card-category">{{ config.selectedDevice.name }} - {{ config.variableFullName }}</h5>
@@ -48,7 +48,7 @@
                     },
                     chart: {
                         renderTo: 'container',
-                        defaultSeriesType: 'spline',
+                        defaultSeriesType: 'line',
                         backgroundColor: 'rgba(0,0,0,0)',
                     },
                     title: {
@@ -116,10 +116,14 @@
                     setTimeout(() => {
                         this.value = 0;
                         this.$nuxt.$off(this.topic + "/sdata");
+
                         this.topic = this.config.userId + '/' + this.config.selectedDevice.dId + '/' + this.config.variable;
                         this.$nuxt.$on(this.topic + "/sdata", this.procesReceivedData);
+
                         this.chartOptions.series[0].data = [];
+
                         this.getChartData();
+
                         this.chartOptions.series[0].name = this.config.variableFullName + " " + this.config.unit;
                         this.updateColorClass();
                         window.dispatchEvent(new Event('resize'));
@@ -167,10 +171,11 @@
                 }
                 this.$axios.get("/get-small-charts-data", axiosHeaders)
                     .then(res => {
-                        
+                       
                         this.chartOptions.series[0].data = [];
                         const data = res.data.data;
                         console.log(res.data)
+
                         data.forEach(element => {
                             var aux = []
                             aux.push(element.time + (new Date().getTimezoneOffset() * 60 * 1000 * -1));
@@ -242,3 +247,4 @@
         }
     };
 </script>
+<style></style>

@@ -82,12 +82,14 @@ function initScrollbar(className) {
 
 import DashboardNavbar from "@/components/Layout/DashboardNavbar.vue";
 import ContentFooter from "@/components/Layout/ContentFooter.vue";
+import Grafico from "../components/Widgets/Grafico.vue";
 import DashboardContent from "@/components/Layout/Content.vue";
 import { SlideYDownTransition, ZoomCenterTransition } from "vue2-transitions";
 
 export default {
   middleware: "Identificado",
   components: {
+    Grafico,
     DashboardNavbar,
     ContentFooter,
     DashboardContent,

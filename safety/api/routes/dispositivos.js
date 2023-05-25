@@ -208,7 +208,7 @@ router.put("/dispositivos", checkAuth, async (req, res) => {
 });
 
 // Actualizar el Estado de la Regla de Guardado
-router.put("/regla-guardado", checkAuth, async (req, res) => {
+router.put("/saver-rule", checkAuth, async (req, res) => {
   try {
     const rule = req.body.rule;
 

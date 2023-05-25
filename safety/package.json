@@ -15,6 +15,7 @@
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/pwa": "^3.3.5",
     "bcrypt": "^5.0.0",
+    "body-parser": "^1.20.2",
     "bootstrap": "4.3.1",
     "chart.js": "2.9.4",
     "colors": "^1.4.0",
@@ -40,7 +41,7 @@
     "mqtt": "^4.2.5",
     "node-localstorage": "^2.2.1",
     "nuxt": "2.15.8",
-    "nuxt-highcharts": "^1.0.3",
+    "nuxt-highcharts": "^2.0.4",
     "nuxt-i18n": "^6.1.0",
     "perfect-scrollbar": "^1.5.5",
     "register-service-worker": "^1.7.2",
@@ -48,7 +49,7 @@
     "universal-cookie": "^4.0.4",
     "vue-chartjs": "3.5.1",
     "vue-i18n": "8.0.0",
-    "vue2-transitions": "0.3.0",
+    "vue2-transitions": "^0.3.0",
     "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {

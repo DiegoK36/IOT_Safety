@@ -229,7 +229,7 @@ export default {
       };
 
       this.$axios
-        .put("/regla-guardado", toSend, axiosHeaders)
+        .put("/saver-rule", toSend, axiosHeaders)
         .then((res) => {
           if (res.data.status == "Éxito") {
             this.$store.dispatch("getDevices");

@@ -48,7 +48,7 @@ router.get('/get-last-data', checkAuth, async (req, res) => {
     console.log(error)
 
     const response = {
-      status: "Error",
+      status: "error",
       error: error
     } 
 
@@ -86,7 +86,7 @@ router.get('/get-small-charts-data', checkAuth, async (req, res) => {
     console.log(error)
 
     const response = {
-      status: "Error",
+      status: "error",
       error: error
     } 
 

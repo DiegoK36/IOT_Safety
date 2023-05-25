@@ -43,7 +43,7 @@ services:
       - mongo
 
     extra_hosts:
-      - "localhost:192.168.50.27"
+      - "localhost:192.168.226.182"
 
     environment:
       

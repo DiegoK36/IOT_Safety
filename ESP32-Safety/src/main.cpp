@@ -12,7 +12,7 @@
 #include <BH1750.h>
 
 String dId = "2020";
-String webhook_pass = "sQy7AJe2NS";
+String webhook_pass = "wPGX2dPqnk";
 String webhook_endpoint = "http://192.168.226.182:3001/api/getdevicecredentials";
 const char *mqtt_server = "192.168.226.182";
 
@@ -135,7 +135,7 @@ void process_sensors()
     dif_temp *= -1;
   }
 
-  if (dif_temp >= 5)
+  if (dif_temp >= 1)
   {
     mqtt_data_doc["variables"][0]["last"]["save"] = 1;
   }
@@ -157,7 +157,7 @@ void process_sensors()
     dif_hum *= -1;
   }
 
-  if (dif_hum >= 5)
+  if (dif_hum >= 1)
   {
     mqtt_data_doc["variables"][1]["last"]["save"] = 1;
   }
@@ -178,7 +178,7 @@ void process_sensors()
     dif_luz *= -1;
   }
 
-  if (dif_luz >= 1)
+  if (dif_luz >= 2)
   {
     mqtt_data_doc["variables"][2]["last"]["save"] = 1;
   }

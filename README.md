@@ -34,7 +34,7 @@ git clone https://github.com/DiegoK36/safety.git
 cd Safety_Service
 ```
 
-3. Configure las variables de entorno en el archivo docker-compose.yml. Asegúrese de editar las variables según su configuración de hardware y red.
+3. Configure las variables de entorno en el archivo ``docker-compose.yml``. Asegúrese de editar las variables según su configuración de hardware y red.
 
 4. Levante los servicios de EMQX y MongoDB:
 
@@ -44,7 +44,7 @@ docker-compose up -d
 
 6. Abra su navegador web y visite http://localhost:18083 para acceder al dashboard EMQX.
 
-7. Conéctese a la base de datos MongoDB mediante DBCompass en localhost:27017. Credenciales en el docker-compose.yml.
+7. Conéctese a la base de datos MongoDB mediante DBCompass en ``localhost:27017``. Credenciales en el ``docker-compose.yml``.
 
 ## Instalación - APP
 

@@ -5,27 +5,24 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include <PubSubClient.h>
-#include <Adafruit_Sensor.h>
-#include <DHT.h>
-#include <DHT_U.h>
 #include <Wire.h>
-#include <BH1750.h>
 
-String dId = "2020";
-String webhook_pass = "S53gMXQFZ1     ";
+String dId = "3030";
+String webhook_pass = "L9BpZCfH4x";
 String webhook_endpoint = "http://192.168.226.182:3001/api/getdevicecredentials";
 const char *mqtt_server = "192.168.226.182";
 
 // PINES DE ESP32
-#define led 2
-#define DHTPIN 4
-#define DHTTYPE DHT11
-#define FLAME_SENSOR_PIN 33
-#define Buzzer 32
-BH1750 lightMeter;
-
-
-DHT dht(DHTPIN, DHTTYPE);
+#define timeSeconds 10
+int LED = 32;
+int Sensor_input = 4;
+const int led = 26;
+const int motionSensor = 27;
+unsigned long now = millis();
+unsigned long lastTrigger = 0;
+boolean startTimer = false;
+boolean motion = false;
+const long interval = 1000;     
 
 // Credenciales Wi-Fi
 const char *wifi_ssid = "OPPO";
@@ -36,12 +33,12 @@ bool get_mqtt_credentials();
 void check_mqtt_connection();
 bool reconnect();
 void process_sensors();
-void process_actuators();
 void send_data_to_broker();
 void callback(char *topic, byte *payload, unsigned int length);
 void process_incoming_msg(String topic, String incoming);
 void print_stats();
 void clear();
+void IRAM_ATTR detectsMovement();
 
 // Variables Globales
 WiFiClient espclient;
@@ -51,9 +48,7 @@ long varsLastSend[20];
 long lastReconnectAttemp = 0;
 String last_received_msg = "";
 String last_received_topic = "";
-int prev_temp = 0;
-int prev_hum = 0;
-int prev_luz = 0;
+int prev_gas = 0;
 
 DynamicJsonDocument mqtt_data_doc(2048);
 
@@ -62,9 +57,11 @@ void setup()
 {
 
   Serial.begin(921600);
-  pinMode(FLAME_SENSOR_PIN, INPUT);
-  pinMode(Buzzer, OUTPUT);
+  pinMode(LED, OUTPUT);
+  pinMode(motionSensor, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(motionSensor), detectsMovement, RISING);
   pinMode(led, OUTPUT);
+  digitalWrite(led, LOW);
   clear();
 
   Serial.print(Cyan + "\n\nConexión WiFi en Proceso" + fontReset);
@@ -98,10 +95,6 @@ void setup()
   Serial.print(WiFi.localIP());
   Serial.println(fontReset);
 
-  dht.begin();
-  Wire.begin();
-  lightMeter.begin();
-
   client.setCallback(callback);
 }
 
@@ -115,27 +108,26 @@ void process_sensors()
 {
 
   delay(2000);
-  float h = dht.readHumidity();
-  float t = dht.readTemperature();
-  float lux = lightMeter.readLightLevel();
-
-  if (isnan(h) || isnan(t)) {
-    Serial.println(F("Fallo en el sensor DHT11"));
-  return;
-  }
+  int nivel_gas = analogRead(Sensor_input);
 
   // Valor de Temperatura Simulado
-  float temp = t;
-  mqtt_data_doc["variables"][0]["last"]["value"] = temp;
+  mqtt_data_doc["variables"][0]["last"]["value"] = nivel_gas;
 
-  // ¿Guardar en base de datos?
-  float dif_temp = temp - prev_temp;
-  if (dif_temp < 0)
-  {
-    dif_temp *= -1;
+  if (nivel_gas > 1800) {   
+    digitalWrite (LED, HIGH) ; 
+  }
+  else {
+    digitalWrite (LED, LOW) ;  
   }
 
-  if (dif_temp >= 0.1)
+  // ¿Guardar en base de datos?
+  int dif_gas = nivel_gas - prev_gas;
+  if (dif_gas < 0)
+  {
+    dif_gas *= -1;
+  }
+
+  if (dif_gas >= 0.1)
   {
     mqtt_data_doc["variables"][0]["last"]["save"] = 1;
   }
@@ -144,81 +136,30 @@ void process_sensors()
     mqtt_data_doc["variables"][0]["last"]["save"] = 0;
   }
 
-  prev_temp = temp;
+  prev_gas = nivel_gas;
 
-  // Valor de Temperatura Simulado
-  float hum = h;
-  mqtt_data_doc["variables"][1]["last"]["value"] = hum;
-
-  // Para guardar en base de datos
-  float dif_hum = hum - prev_hum;
-  if (dif_hum < 0)
-  {
-    dif_hum *= -1;
+  now = millis();
+  if((digitalRead(led) == HIGH) && (motion == false)) {
+    motion = true;
+  }
+  if(startTimer && (now - lastTrigger > (timeSeconds*1000))) {
+    digitalWrite(led, LOW);
+    startTimer = false;
+    motion = false;
   }
 
-  if (dif_hum >= 1)
-  {
-    mqtt_data_doc["variables"][1]["last"]["save"] = 1;
-  }
-  else
-  {
-    mqtt_data_doc["variables"][1]["last"]["save"] = 0;
-  }
+  // Obtener el Valor de LED de Sensor de Movimiento
+  mqtt_data_doc["variables"][1]["last"]["value"] = (HIGH == digitalRead(led));
 
-  prev_hum = hum;
+  // Obtener el valor GAS
+  mqtt_data_doc["variables"][2]["last"]["value"] = (HIGH == digitalRead(LED));
 
-  float luz = lux;
-  mqtt_data_doc["variables"][2]["last"]["value"] = luz;
-
-  // Para guardar en base de datos
-  float dif_luz = luz - prev_luz;
-  if (dif_luz < 0)
-  {
-    dif_luz *= -1;
-  }
-
-  if (dif_luz >= 2)
-  {
-    mqtt_data_doc["variables"][2]["last"]["save"] = 1;
-  }
-  else
-  {
-    mqtt_data_doc["variables"][2]["last"]["save"] = 0;
-  }
-
-  prev_luz = luz;
-  
-  
-  // Obtener el Valor de un LED
-  mqtt_data_doc["variables"][5]["last"]["value"] = (HIGH == digitalRead(led));
-
-  // Obtener el Valor del Sensor de Flama
-  mqtt_data_doc["variables"][6]["last"]["value"] = (LOW == digitalRead(FLAME_SENSOR_PIN));
-
-  if (digitalRead(FLAME_SENSOR_PIN) == LOW) {
-    digitalWrite (Buzzer, HIGH) ; 
-    delay(100);
-    digitalWrite (Buzzer, LOW) ;  
-  }
 }
 
-void process_actuators()
-{
-  if (mqtt_data_doc["variables"][3]["last"]["value"] == "true")
-  {
-    digitalWrite(led, HIGH);
-    mqtt_data_doc["variables"][3]["last"]["value"] = "";
-    varsLastSend[5] = 0;
-    varsLastSend[6] = 0;
-  }
-  else if (mqtt_data_doc["variables"][4]["last"]["value"] == "false")
-  {
-    digitalWrite(led, LOW);
-    mqtt_data_doc["variables"][4]["last"]["value"] = "";
-    varsLastSend[5] = 0;
-    varsLastSend[6] = 0;
-  }
+void IRAM_ATTR detectsMovement() {
+  digitalWrite(led, HIGH);
+  startTimer = true;
+  lastTrigger = millis();
 }
 
 /*
@@ -261,8 +202,6 @@ void process_incoming_msg(String topic, String incoming){
     }
 
   }
-
-  process_actuators();
 
 }
 
@@ -482,5 +421,6 @@ void print_stats()
     Serial.print(boldGreen + "\n\n RAM Libre -> " + fontReset + ESP.getFreeHeap() + " Bytes");
 
     Serial.print(boldGreen + "\n\n Último Mensaje Entrante -> " + fontReset + last_received_msg);
+    Serial.print(boldGreen + "\n\n Nivel Gas ->" + digitalRead(Sensor_input));
   }
 }

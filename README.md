@@ -16,11 +16,37 @@ Safety es un proyecto de Internet de las Cosas (IoT) que integra sensores y actu
 
 ## Requisitos
 
-- Node.js v14.15.1 o superior.
+- Node.js v14.15.1 o superior (Hasta la v16.x.x).
 - NPM v6.14.8 o superior.
 - Un dispositivo ESP32 (opcional).
 
-## Instalación
+## Instalación - Servicios
+
+1. Clone este repositorio:
+
+```bash
+git clone https://github.com/DiegoK36/safety.git
+```
+
+2. Entre al directorio del proyecto:
+
+```bash
+cd Safety_Service
+```
+
+3. Configure las variables de entorno en el archivo ``docker-compose.yml``. Asegúrese de editar las variables según su configuración de hardware y red.
+
+4. Levante los servicios de EMQX y MongoDB:
+
+```bash
+docker-compose up -d
+```
+
+6. Abra su navegador web y visite http://localhost:18083 para acceder al dashboard EMQX.
+
+7. Conéctese a la base de datos MongoDB mediante DBCompass en ``localhost:27017``. Credenciales en el ``docker-compose.yml``.
+
+## Instalación - APP
 
 1. Clone este repositorio:
 
@@ -52,7 +78,7 @@ npm run dev
 
 ## Uso de Aplicación
 
-1. Configure sus dispositivos ESP32 a través del proyecto PlatformIO.
+1. Configure sus dispositivos ESP32 a través del proyecto PlatformIO. Se incluyen dos plantillas en ``ESP32-Safety`` y ``ESP32-Safety-1``
 
 2. Utilice el dashboard para visualizar y monitorear los valores de los sensores y actuadores en tiempo real.
 

@@ -16,7 +16,7 @@ Safety es un proyecto de Internet de las Cosas (IoT) que integra sensores y actu
 
 ## Requisitos
 
-- Node.js v14.15.1 o superior.
+- Node.js v14.15.1 o superior (Hasta la v16.x.x).
 - NPM v6.14.8 o superior.
 - Un dispositivo ESP32 (opcional).
 

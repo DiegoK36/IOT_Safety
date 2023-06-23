@@ -20,7 +20,7 @@ async function listResources() {
   try {
 
     const url =
-      "http://localhost:8085/api/v4/resources/";
+      "http://"+process.env.EMQX_HOST+":8085/api/v4/resources/";
 
     const res = await axios.get(url, auth);
 
@@ -77,12 +77,12 @@ async function listResources() {
 async function createResources() {
 
     try {
-        const url = "http://localhost:8085/api/v4/resources";
+        const url = "http://"+process.env.EMQX_HOST+":8085/api/v4/resources";
 
         const data1 = {
             "type": "web_hook",
             "config": {
-                url: "http://localhost:3001/api/saver-webhook",
+                url: "http://"+process.env.EMQX_HOST+":3001/api/saver-webhook",
                 headers: {
                     token: process.env.EMQX_API_TOKEN
                 },
@@ -94,7 +94,7 @@ async function createResources() {
         const data2 = {
             "type": "web_hook",
             "config": {
-                url: "http://localhost:3001/api/alarm-webhook",
+                url: "http://"+process.env.EMQX_HOST+":3001/api/alarm-webhook",
                 headers: {
                     token: process.env.EMQX_API_TOKEN
                 },
@@ -161,6 +161,6 @@ global.check_mqtt_superuser = async function checkMqttSuperUser(){
 
 setTimeout(() => {
     listResources();
-  }, 1000);
+  }, process.env.EMQX_RESOURCES_DELAY);
 
 module.exports = router;

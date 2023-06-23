@@ -12,8 +12,10 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/pwa": "^3.3.5",
+    "babel": "^6.23.0",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.20.2",
     "bootstrap": "4.3.1",
@@ -40,7 +42,7 @@
     "morgan": "^1.10.0",
     "mqtt": "^4.2.5",
     "node-localstorage": "^2.2.1",
-    "nuxt": "2.15.8",
+    "nuxt": "^2.15.8",
     "nuxt-highcharts": "^2.0.4",
     "nuxt-i18n": "^6.1.0",
     "perfect-scrollbar": "^1.5.5",
